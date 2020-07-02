@@ -29,5 +29,5 @@ message UpdateNeighboursResponse{
 }
 
 service UpdateNeighbours {
-  rpc update (UpdateNeighboursMessage) returns (UpdateNeighboursResponse) {}
+  rpc update (stream UpdateNeighboursMessage) returns (stream UpdateNeighboursResponse) {}
 }
