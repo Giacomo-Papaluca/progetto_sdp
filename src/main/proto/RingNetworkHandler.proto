@@ -2,23 +2,32 @@ syntax="proto3";
 
 package com.netHandler;
 
-message UpdateNeighboursMessage {
+message Node {
+  string id=1;
+  string address=2;
+  int32 port=3;
+}
 
-  message Node {
-    string id=1;
-    string address=2;
-    int32 port=3;
-  }
+message UpdateNeighboursMessage {
 
   repeated Node network=1;
   Node previous=2;
   Node from=3;
   Node next=4;
-  bool exiting=5;
-  bool entering=6;
+  Node to=5;
+  bool exiting=6;
+  bool entering=7;
+
+}
+
+message UpdateNeighboursResponse{
+
+  bool ok=1;
+  Node previous=2;
+  Node next=3;
 
 }
 
 service UpdateNeighbours {
-  rpc update (stream UpdateNeighboursMessage) returns (stream UpdateNeighboursMessage) {}
+  rpc update (UpdateNeighboursMessage) returns (UpdateNeighboursResponse) {}
 }

@@ -38,10 +38,11 @@ public class NodeNetwork {
     public synchronized boolean addNode(Node node){
         List<Node> copy=this.getNodes();
         boolean ret=false;
-        if(!containsDuplicatedID(copy, node.getId())){
+        String nodeId = node.getId();
+        if(!containsDuplicatedID(copy, nodeId)){
             int i;
             for (i = 0; i < copy.size(); i++) {
-                if (copy.get(i).getId().compareTo(node.getId())>0){ //compareTo è positivo se la prima stringa è maggiore della seconda
+                if (copy.get(i).getId().compareTo(nodeId)>0){ //compareTo è positivo se la prima stringa è maggiore della seconda
                     break;
                 }
             }

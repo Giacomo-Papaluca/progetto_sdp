@@ -3,7 +3,6 @@ package p2p;
 
 import beans.Node;
 import beans.NodeNetwork;
-import pm10.Buffer;
 import pm10.PM10Simulator;
 import pm10.Simulator;
 
@@ -29,7 +28,7 @@ public class Nodo {
     public static String gateway="localhost";
     public static int gatewayPort=8080;
     private static final String resource= "/SDP_papaluca_2020_war_exploded";
-    private static final int idLength = 20;
+    private static final int idLength = 5;
     private static final int maxPort = 49151;
     private static final int minPort = 1024;
 
@@ -64,52 +63,55 @@ public class Nodo {
 
 
 
-    public static void main(String[] args) {
+    public static void main(String [] args) {
+        try {
+            Random s=new Random();
+            Thread.sleep(1000*s.nextInt(5));
+        } catch (InterruptedException e) {
+            System.out.println("davvero?");
+            e.printStackTrace();
+        }
         BufferImpl buffer = new BufferImpl();
         Simulator sensorSimulator = new PM10Simulator(buffer);
         sensorSimulator.start();
         System.out.println("Sensing started...\n");
         try {
             Client client = Client.create();
-            WebResource webResource = client.resource(URI.create("http://" + gateway + ":" + gatewayPort + resource + "/api/hello"));
-            ClientResponse response = webResource.accept("text/plain").get(ClientResponse.class);
-            System.out.println(response.getEntity(String.class));
+            WebResource webResource;
+            ClientResponse response;
+            NetworkHandler networkHandler = new NetworkHandler();
             Server server;
             int nodePort;
             Random r=new Random();
             do {
                 nodePort=r.nextInt(maxPort-minPort) + minPort;
                 try {
-                    server = ServerBuilder.forPort(nodePort).addService(new UpdateNeighboursImpl()).build();
+                    server = ServerBuilder.forPort(nodePort).addService(networkHandler).build();
+                    ClientResponse addNodeResponse;
+                    webResource = client.resource(URI.create("http://" + gateway + ":" + gatewayPort + resource + "/nodenetwork/add/node"));
+                    Node node;
+                    do {
+                        String nodeId=randomAlphaNumeric(idLength);
+                        node = new Node(nodeId,  "localhost", nodePort);
+                        addNodeResponse = webResource.accept(MediaType.APPLICATION_JSON).post(ClientResponse.class, node);
+                    } while (addNodeResponse.getStatus() != 200); //400 bad_request se c'è già id.
+
+                    networkHandler.setNode(node);
+                    webResource=client.resource(URI.create("http://" + gateway + ":" + gatewayPort + resource + "/nodenetwork/nodes"));
+                    response=webResource.accept("application/json").get(ClientResponse.class);
+                    NodeNetwork nodeNetwork=response.getEntity(NodeNetwork.class);
+                    System.out.println("uccuddi");
+                    System.out.println("ho "+nodeNetwork.countNodes()+ "nodi");
+                    networkHandler.setNodes(nodeNetwork.getNodes());
                     server.start();
                     break;
-                }catch (java.io.IOException exception){
+                }catch (java.net.BindException exception){
                     continue;
                 }
             }while (true);
-            ClientResponse addNodeResponse;
-            webResource = client.resource(URI.create("http://" + gateway + ":" + gatewayPort + resource + "/nodenetwork/add/node"));
-            //String requestBody;
-            Node node;
-            do {
-                //requestBody = buildInsertionRequestBody();
-                //System.out.println(requestBody);
-                String nodeId=randomAlphaNumeric(idLength);
-                node = new Node(nodeId,  "localhost", nodePort);
-                addNodeResponse = webResource.accept(MediaType.APPLICATION_JSON).post(ClientResponse.class, node);
-                if (addNodeResponse.getStatus()==404){
-                    System.out.println("404, Not Found");
-                    return;
-                }
-            } while (addNodeResponse.getStatus() != 200); //400 bad_request se c'è già id.
-
-            System.out.println("fatto");
-            webResource=client.resource(URI.create("http://" + gateway + ":" + gatewayPort + resource + "/nodenetwork/nodes"));
-            response=webResource.accept("application/json").get(ClientResponse.class);
-            NodeNetwork nodeNetwork=response.getEntity(NodeNetwork.class);
 
             ThreadHandler threadHandler =new ThreadHandler();
-            NetworkHandler networkHandler = new NetworkHandler(node, nodeNetwork, threadHandler);
+            networkHandler.setThreadHandler(threadHandler);
             Thread networkThread=new Thread(networkHandler);
             networkThread.start();
 
