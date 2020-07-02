@@ -26,7 +26,10 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
     ManagedChannel toPrevious;
     ThreadHandler threadHandler;
 
-    public NetworkHandler(){}
+    public NetworkHandler(){
+        entering=true;
+        exiting=false;
+    }
 
     public void setNode(Node node){
         this.node=node;
@@ -102,8 +105,6 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
             return true;
         }
         if(nodes.get(nodes.size()-1).getId().equals(node.getId())){
-            System.out.println("wa");
-            System.out.println(fromId+"\t"+next.getId()+"\t"+node.getId());
             if(fromId.compareTo(next.getId())<0||fromId.compareTo(node.getId())>0){
                 return true;
             }
@@ -145,6 +146,7 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
         return null;
     }
 
+
     @Override
     public void run() {
         for (Node n: nodes) {
@@ -152,9 +154,14 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
         }
         next=findNext(node, nodes);
         previous=findPrev(node, nodes);
-        entering = true;
-        exiting = false;
         System.out.println("io: "+node.getId()+ " ho come prev: "+previous.getId()+" e next: "+next.getId());
+        try {
+            Random s=new Random();
+            Thread.sleep(1000*s.nextInt(4));
+        } catch (InterruptedException e) {
+            System.out.println("davvero?");
+            e.printStackTrace();
+        }
         if(nodes.size()>1) {
 
             UpdateNeighboursMessage message=UpdateNeighboursMessage.newBuilder().setEntering(entering).setExiting(exiting)
@@ -224,7 +231,7 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
         exiting=true;
 
         System.out.println("bye");
-        System.out.println("next: "+next.getId()+" prev: "+previous.getId());
+        System.out.println("io: "+node.getId()+" next: "+next.getId()+" prev: "+previous.getId());
         System.out.println("lista");
         for (Node n: nodes) {
             System.out.println(n.getId());

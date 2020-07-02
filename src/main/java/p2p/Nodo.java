@@ -64,13 +64,6 @@ public class Nodo {
 
 
     public static void main(String [] args) {
-        try {
-            Random s=new Random();
-            Thread.sleep(1000*s.nextInt(5));
-        } catch (InterruptedException e) {
-            System.out.println("davvero?");
-            e.printStackTrace();
-        }
         BufferImpl buffer = new BufferImpl();
         Simulator sensorSimulator = new PM10Simulator(buffer);
         sensorSimulator.start();
@@ -100,7 +93,6 @@ public class Nodo {
                     webResource=client.resource(URI.create("http://" + gateway + ":" + gatewayPort + resource + "/nodenetwork/nodes"));
                     response=webResource.accept("application/json").get(ClientResponse.class);
                     NodeNetwork nodeNetwork=response.getEntity(NodeNetwork.class);
-                    System.out.println("uccuddi");
                     System.out.println("ho "+nodeNetwork.countNodes()+ "nodi");
                     networkHandler.setNodes(nodeNetwork.getNodes());
                     server.start();
@@ -114,6 +106,7 @@ public class Nodo {
             networkHandler.setThreadHandler(threadHandler);
             Thread networkThread=new Thread(networkHandler);
             networkThread.start();
+
 
             BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
             String check;
