@@ -192,6 +192,7 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                         e.printStackTrace();
                     }*/
                     previous=new Node(suggestedPrevious.getId(), suggestedPrevious.getAddress(), suggestedPrevious.getPort());
+                    addNode(previous);
                     toPrevious=ManagedChannelBuilder.forTarget(previous.getAddress() + ":" + previous.getPort()).usePlaintext(true).build();
                     stubPrevious=UpdateNeighboursGrpc.newBlockingStub(toPrevious);
                     message= UpdateNeighboursMessage.newBuilder().setEntering(entering).setExiting(exiting).setFrom(message.getFrom())
@@ -211,6 +212,7 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                         e.printStackTrace();
                     }*/
                     next=new Node(suggestedNext.getId(), suggestedNext.getAddress(), suggestedNext.getPort());
+                    addNode(next);
                     toNext = ManagedChannelBuilder.forTarget(next.getAddress() + ":" + next.getPort()).usePlaintext(true).build();
                     stubNext=UpdateNeighboursGrpc.newBlockingStub(toNext);
                     message= UpdateNeighboursMessage.newBuilder().setEntering(entering).setExiting(exiting).setFrom(message.getFrom())
@@ -221,7 +223,13 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                 entering = false;
                 System.out.println(fromPrevious);
                 System.out.println(fromNext);
-
+                if(nodes.size()>3){
+                    message= RingNetworkHandler.UpdateNeighboursMessage.newBuilder().setEntering(entering).setExiting(exiting)
+                            .setFrom(RingNetworkHandler.Node.newBuilder().setPort(node.getPort()).setAddress(node.getAddress()).setId(node.getId()).build())
+                            .build();
+                    stubNext=UpdateNeighboursGrpc.newBlockingStub(toNext);
+                    stubNext.update(message);
+                }
             }
         }
 
@@ -243,6 +251,7 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
 
 
     public void update(UpdateNeighboursMessage message, StreamObserver<RingNetworkHandler.UpdateNeighboursResponse> responseObserver){
+        boolean forward=false;
         System.out.println("update");
         RingNetworkHandler.Node from = message.getFrom();
         String fromId=from.getId(), fromAddress=from.getAddress();
@@ -266,78 +275,43 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
             channel.shutdown();*/
 
 
-            if(nodes.size()==1){
-                previous=next=new Node(fromId, fromAddress, fromPort);
-                toNext=toPrevious=ManagedChannelBuilder.forTarget(fromAddress+":"+fromPort).usePlaintext(true).build();
-                response=RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(true).build();
-                addNode(previous);
-                System.out.println("new next and prev: "+previous.getId());
-            }
-            else{
-                if (message.getEntering()) {
-                    if (message.getNext().getId().equals(node.getId())) {
-                        if(evaluateLeftNeighbouring(fromId)){
-                            previous=new Node(fromId, fromAddress, fromPort);
-                            addNode(previous);
-                            /*toPrevious.shutdownNow();
-                            try {
-                                toPrevious.awaitTermination(10, TimeUnit.SECONDS);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }*/
-                            toPrevious=ManagedChannelBuilder.forTarget(fromAddress+":"+fromPort).usePlaintext(true).build();
-                            System.out.println("new previous "+fromId);
-                            response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(true).build();
-                            if(nodes.size()>3){
-                                System.out.println("invio al mio next: "+next.getId());
-                                //non ho capito perchè devo ricreare il canale
-                                toNext=ManagedChannelBuilder.forTarget(next.getAddress()+":"+next.getPort()).usePlaintext(true).build();
-                                UpdateNeighboursBlockingStub stub=UpdateNeighboursGrpc.newBlockingStub(toNext);
-                                stub.update(message);
-                            }
-                        }
-                        else{
-                            RingNetworkHandler.Node myPrevious= RingNetworkHandler.Node.newBuilder().setId(previous.getId())
-                                    .setPort(previous.getPort()).setAddress(previous.getAddress()).build();
-                            response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(false).setNext(myPrevious).build();
-                        }
-                    }
-                    else if (message.getPrevious().getId().equals(node.getId())) {
-                        if(evaluateRightNeighbouring(fromId)){
-                            /*toNext.shutdownNow();
-                            try {
-                                toNext.awaitTermination(10, TimeUnit.SECONDS);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }*/
-                            next=new Node(fromId, fromAddress, fromPort);
-                            addNode(next);
-                            toNext=ManagedChannelBuilder.forTarget(fromAddress+":"+fromPort).usePlaintext(true).build();
-                            System.out.println("new next "+fromId);
-                            response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(true).build();
-                        }
-                        else{
-                            RingNetworkHandler.Node myNext= RingNetworkHandler.Node.newBuilder().setId(next.getId())
-                                    .setPort(next.getPort()).setAddress(next.getAddress()).build();
-                            response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(false).setPrevious(myNext).build(); //il client ha sbagliato
-                            //il suo prev dovrebbe essere il mio next
-                        }
-                    } else {
-                        addNode(new Node(fromId, fromAddress, fromPort));
+
+            if (message.getEntering()) {
+                if (message.getNext().getId().equals(node.getId())) {
+                    if(evaluateLeftNeighbouring(fromId)){
                         response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(true).build();
-                        if(!(next.getId().equals(fromId) || next.getId().equals(message.getNext().getId()) || next.getId().equals(message.getPrevious().getId()))) {
-                            System.out.println("inoltro");
-                            toNext=ManagedChannelBuilder.forTarget(next.getAddress()+":"+next.getPort()).usePlaintext(true).build();
-                            UpdateNeighboursBlockingStub stub = UpdateNeighboursGrpc.newBlockingStub(toNext);
-                            stub.update(message);
-                        }
                     }
-                } else if (message.getExiting()) {
-                    response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(true).build();    ///da fare
+                    else{
+                        RingNetworkHandler.Node suggestedNext= RingNetworkHandler.Node.newBuilder().setId(previous.getId())
+                                .setPort(previous.getPort()).setAddress(previous.getAddress()).build();
+                        response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(false).setNext(suggestedNext).build();
+                    }
+                }
+                else if (message.getPrevious().getId().equals(node.getId())) {
+                    if(evaluateRightNeighbouring(fromId)){
+                        response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(true).build();
+                    }
+                    else{
+                        RingNetworkHandler.Node suggestedPrevious= RingNetworkHandler.Node.newBuilder().setId(next.getId())
+                                .setPort(next.getPort()).setAddress(next.getAddress()).build();
+                        response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(false).setPrevious(suggestedPrevious).build();
+                    }
                 } else {
-                    response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(false).build();    //non dovrei ricevere questi messaggi
+                    response= RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(false).build();
+                    //non ricevo messaggi di entering se non sono diretto interessato perchè sarà poi il messaggio di update
+                    // con entering ed exiting a false che mi farà aggiornare la lista di nodi
+                }
+            } else if (message.getExiting()) {
+                response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(true).build();    ///da fare
+            } else {
+                //messaggi con entering e exiting a false, aggiungo solo il nodo from e inoltro.
+                addNode(new Node(fromId, message.getFrom().getAddress(), message.getFrom().getPort()));
+                response= RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(true).build();
+                if(!(next.getId().equals(fromId)|| next.getId().equals(message.getPrevious().getId()) || next.getId().equals(message.getNext().getId()))){
+                    forward=true;
                 }
             }
+
 
 
         }
@@ -356,6 +330,11 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
 
         responseObserver.onNext(response);
         responseObserver.onCompleted();
+        if(forward){
+            UpdateNeighboursBlockingStub stubNext=UpdateNeighboursGrpc.newBlockingStub(toNext);
+            stubNext.update(message);
+        }
+
 
     }
 
