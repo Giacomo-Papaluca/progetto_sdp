@@ -223,13 +223,6 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                 entering = false;
                 System.out.println(fromPrevious);
                 System.out.println(fromNext);
-                if(nodes.size()>3){
-                    message= RingNetworkHandler.UpdateNeighboursMessage.newBuilder().setEntering(entering).setExiting(exiting)
-                            .setFrom(RingNetworkHandler.Node.newBuilder().setPort(node.getPort()).setAddress(node.getAddress()).setId(node.getId()).build())
-                            .build();
-                    stubNext=UpdateNeighboursGrpc.newBlockingStub(toNext);
-                    stubNext.update(message);
-                }
             }
         }
 
@@ -254,10 +247,10 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
         boolean forward=false;
         System.out.println("update");
         RingNetworkHandler.Node from = message.getFrom();
-        String fromId=from.getId(), fromAddress=from.getAddress();
-        int fromPort=from.getPort();
+        String fromId=from.getId();
         RingNetworkHandler.UpdateNeighboursResponse response;
-        if(nodes!=null) {
+        Node fromNode = new Node(fromId, message.getFrom().getAddress(), message.getFrom().getPort());
+        if(nodes.size()>2) {
             /*List<RingNetworkHandler.Node> nodes = message.getNetworkList();   //// per ora niente network
             System.out.println(nodes.indexOf(node));
             int index = (nodes.indexOf(node) + 1) % nodes.size();
@@ -275,13 +268,24 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
             channel.shutdown();*/
 
 
-
             if (message.getEntering()) {
+                addNode(fromNode);
                 if (message.getNext().getId().equals(node.getId())) {
                     if(evaluateLeftNeighbouring(fromId)){
+                        System.out.println("qui");
                         response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(true).build();
+                        for (Node n: nodes) {
+                            System.out.println(n.getId());
+                        }
+                        if(nodes.size()>3){
+                            if(!(next.getId().equals(fromId)|| next.getId().equals(message.getPrevious().getId()) || next.getId().equals(message.getNext().getId()))){
+                                forward=true;
+                            }
+                        }
+
                     }
                     else{
+                        nodes.remove(fromNode);
                         RingNetworkHandler.Node suggestedNext= RingNetworkHandler.Node.newBuilder().setId(previous.getId())
                                 .setPort(previous.getPort()).setAddress(previous.getAddress()).build();
                         response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(false).setNext(suggestedNext).build();
@@ -290,42 +294,33 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                 else if (message.getPrevious().getId().equals(node.getId())) {
                     if(evaluateRightNeighbouring(fromId)){
                         response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(true).build();
+                        addNode(new Node(fromId, message.getFrom().getAddress(), message.getFrom().getPort()));
                     }
                     else{
+                        nodes.remove(fromNode);
                         RingNetworkHandler.Node suggestedPrevious= RingNetworkHandler.Node.newBuilder().setId(next.getId())
                                 .setPort(next.getPort()).setAddress(next.getAddress()).build();
                         response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(false).setPrevious(suggestedPrevious).build();
                     }
                 } else {
-                    response= RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(false).build();
-                    //non ricevo messaggi di entering se non sono diretto interessato perchè sarà poi il messaggio di update
-                    // con entering ed exiting a false che mi farà aggiornare la lista di nodi
+                    response= RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(true).build();
+                    if(!(next.getId().equals(fromId)|| next.getId().equals(message.getPrevious().getId()) || next.getId().equals(message.getNext().getId()))){
+                        forward=true;
+                    }
                 }
             } else if (message.getExiting()) {
                 response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(true).build();    ///da fare
             } else {
                 //messaggi con entering e exiting a false, aggiungo solo il nodo from e inoltro.
-                addNode(new Node(fromId, message.getFrom().getAddress(), message.getFrom().getPort()));
-                response= RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(true).build();
-                if(!(next.getId().equals(fromId)|| next.getId().equals(message.getPrevious().getId()) || next.getId().equals(message.getNext().getId()))){
-                    forward=true;
-                }
+                response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(false).build();
             }
 
 
 
         }
         else {
-            RingNetworkHandler.Node me = RingNetworkHandler.Node.newBuilder().setId(node.getId()).setPort(node.getPort()).setAddress(node.getAddress()).build();
-            if (message.getPrevious().getId().equals(node.getId())) {
-                response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(false).setPrevious(me).build();
-            }
-            else if(message.getNext().getId().equals(node.getId())){
-                response= RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(false).setNext(me).build();
-            }
-            else{
-                response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(false).build();   //non dovrei ricevere questi messaggi
-            }
+            addNode(fromNode);
+            response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(true).build();
         }
 
         responseObserver.onNext(response);
