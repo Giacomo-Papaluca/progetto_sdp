@@ -49,20 +49,6 @@ public class Nodo {
     public Nodo(){ }
 
 
-    /*public static String buildInsertionRequestBody() throws JsonProcessingException {
-        ObjectMapper objectMapper=new ObjectMapper();
-        String nodeId=randomAlphaNumeric(idLength);
-        int nodePort=3456;
-        LinkedHashMap<String, String>nodeValues=new LinkedHashMap<String, String>(){{
-            put("id", nodeId);
-            put ("address", "localhost");
-            put("port", String.valueOf(nodePort));
-        }};
-        return objectMapper.writeValueAsString(nodeValues);
-    }*/
-
-
-
     public static void main(String [] args) {
         BufferImpl buffer = new BufferImpl();
         Simulator sensorSimulator = new PM10Simulator(buffer);
@@ -76,13 +62,13 @@ public class Nodo {
             Server server;
             int nodePort;
             Random r=new Random();
+            Node node;
             do {
                 nodePort=r.nextInt(maxPort-minPort) + minPort;
                 try {
                     server = ServerBuilder.forPort(nodePort).addService(networkHandler).build();
                     ClientResponse addNodeResponse;
                     webResource = client.resource(URI.create("http://" + gateway + ":" + gatewayPort + resource + "/nodenetwork/add/node"));
-                    Node node;
                     do {
                         String nodeId=randomAlphaNumeric(idLength);
                         node = new Node(nodeId,  "localhost", nodePort);
@@ -116,14 +102,10 @@ public class Nodo {
 
             threadHandler.notifyExit();
 
-            /*for (Node n: nodeNetwork.getNodes()) { //////Parte per rimozione
-                System.out.println(n.getId());
-            }
 
-            webResource = client.resource(URI.create("http://" + gateway + ":" + gatewayPort + resource + "/api/nodenetwork/remove/node"));
-            ClientResponse prova= webResource.accept(MediaType.APPLICATION_JSON).post(ClientResponse.class, node);
-            nodeNetwork=prova.getEntity(NodeNetwork.class);
-            System.out.println(nodeNetwork.getNodes().size());*/
+            webResource = client.resource(URI.create("http://" + gateway + ":" + gatewayPort + resource + "/nodenetwork/remove/node"));
+            webResource.accept(MediaType.APPLICATION_JSON).post(String.class, node.getId());
+
 
         } catch (IOException e) { ///per la readLine
             e.printStackTrace();

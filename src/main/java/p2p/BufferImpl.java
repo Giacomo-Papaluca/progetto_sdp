@@ -14,6 +14,7 @@ public class BufferImpl implements Buffer {
 
     public BufferImpl(){
         buffer=new ArrayList<>();
+        most_recent_timestamp=-1;
     }
 
     @Override
