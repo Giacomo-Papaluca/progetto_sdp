@@ -10,13 +10,11 @@ message Node {
 
 message UpdateNeighboursMessage {
 
-  repeated Node network=1;
-  Node previous=2;
-  Node from=3;
-  Node next=4;
-  Node to=5;
-  bool exiting=6;
-  bool entering=7;
+  Node previous=1;
+  Node from=2;
+  Node next=3;
+  bool exiting=4;
+  bool entering=5;
 
 }
 

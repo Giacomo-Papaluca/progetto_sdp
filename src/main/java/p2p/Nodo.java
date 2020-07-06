@@ -59,6 +59,7 @@ public class Nodo {
             WebResource webResource;
             ClientResponse response;
             NetworkHandler networkHandler = new NetworkHandler();
+            TokenHandler tokenHandler = new TokenHandler();
             Server server;
             int nodePort;
             Random r=new Random();
@@ -76,11 +77,17 @@ public class Nodo {
                     } while (addNodeResponse.getStatus() != 200); //400 bad_request se c'è già id.
 
                     networkHandler.setNode(node);
+                    tokenHandler.setNode(node);
                     webResource=client.resource(URI.create("http://" + gateway + ":" + gatewayPort + resource + "/nodenetwork/nodes"));
                     response=webResource.accept("application/json").get(ClientResponse.class);
                     NodeNetwork nodeNetwork=response.getEntity(NodeNetwork.class);
                     System.out.println("ho "+nodeNetwork.countNodes()+ "nodi");
+                    //prima di far partire il server il nodo deve sapere attraverso la conoscenza locale il suo next e prev attuale
                     networkHandler.setNodes(nodeNetwork.getNodes());
+                    tokenHandler.setNetworkSize(nodeNetwork.countNodes());
+                    networkHandler.next=networkHandler.findNext(node);
+                    tokenHandler.setDestination(networkHandler.getNext());
+                    networkHandler.previous=networkHandler.findPrev(node);
                     server.start();
                     break;
                 }catch (java.net.BindException exception){
@@ -100,11 +107,11 @@ public class Nodo {
                 check=br.readLine();
             }while(!check.toLowerCase().equals("exit"));
 
-            threadHandler.notifyExit();
-
-
             webResource = client.resource(URI.create("http://" + gateway + ":" + gatewayPort + resource + "/nodenetwork/remove/node"));
             webResource.accept(MediaType.APPLICATION_JSON).post(String.class, node.getId());
+
+            threadHandler.notifyExit();
+
 
 
         } catch (IOException e) { ///per la readLine
