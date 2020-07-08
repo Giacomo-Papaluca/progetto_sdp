@@ -88,11 +88,13 @@ public class TokenHandler extends SendTokenGrpc.SendTokenImplBase implements Run
             trySend(token);
         }
         threadHandler.waitForUser();
+        threadHandler.waitForTokenRelease();
     }
 
 
     @Override
     public void send(com.tokenHandler.TokenHandler.Token token, StreamObserver<com.tokenHandler.TokenHandler.TokenResponse> responseObserver) {
+        threadHandler.acquiredToken();
         if(!exiting){
             com.tokenHandler.TokenHandler.TokenResponse response=com.tokenHandler.TokenHandler.TokenResponse.newBuilder().setOk(true).build();
             responseObserver.onNext(response);
@@ -153,6 +155,7 @@ public class TokenHandler extends SendTokenGrpc.SendTokenImplBase implements Run
             responseObserver.onNext(response);
             responseObserver.onCompleted();
         }
+        threadHandler.releaseToken();
     }
 
     private void trySend(com.tokenHandler.TokenHandler.Token token) {

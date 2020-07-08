@@ -515,6 +515,19 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                     }
 
                 } else {
+                    synchronized (next) {   //controllo comunque, potrebbe essermi arrivato un update mentre la mia lista non è aggiornata
+                        if(evaluateRightNeighbouring(fromId)) {
+                            setNext(fromNode);
+                            tokenHandler.setDestination(fromNode);
+                            System.out.println("next updaate con lista non aggiornata");
+                        }
+                    }
+                    synchronized (previous) {
+                        if(evaluateLeftNeighbouring(fromId)) {
+                            setPrevious(fromNode);
+                            System.out.println("prev update con lista non aggiornata");
+                        }
+                    }
                     addNode(fromNode);
                     System.out.println("aggiunto nodo: "+fromNode.getId());
                     response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(true).build();
