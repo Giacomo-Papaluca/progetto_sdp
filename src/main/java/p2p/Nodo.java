@@ -3,6 +3,7 @@ package p2p;
 
 import beans.Node;
 import beans.NodeNetwork;
+import com.netHandler.RingNetworkHandler;
 import pm10.PM10Simulator;
 import pm10.Simulator;
 
@@ -33,9 +34,6 @@ public class Nodo {
     private static final int minPort = 1024;
 
 
-
-
-
     private static final String ALPHA_NUMERIC_STRING = "abcdefghijklmnopqrstuvwxyz0123456789";
     public static String randomAlphaNumeric(int count) {
         StringBuilder builder = new StringBuilder();
@@ -59,7 +57,8 @@ public class Nodo {
             WebResource webResource;
             ClientResponse response;
             NetworkHandler networkHandler = new NetworkHandler();
-            TokenHandler tokenHandler = new TokenHandler();
+            TokenHandler tokenHandler = new TokenHandler(buffer);
+            networkHandler.setTokenHandler(tokenHandler);
             Server server;
             int nodePort;
             Random r=new Random();
@@ -67,7 +66,7 @@ public class Nodo {
             do {
                 nodePort=r.nextInt(maxPort-minPort) + minPort;
                 try {
-                    server = ServerBuilder.forPort(nodePort).addService(networkHandler).build();
+                    server = ServerBuilder.forPort(nodePort).addService(networkHandler).addService(tokenHandler).build();
                     ClientResponse addNodeResponse;
                     webResource = client.resource(URI.create("http://" + gateway + ":" + gatewayPort + resource + "/nodenetwork/add/node"));
                     do {
@@ -78,13 +77,17 @@ public class Nodo {
 
                     networkHandler.setNode(node);
                     tokenHandler.setNode(node);
-                    webResource=client.resource(URI.create("http://" + gateway + ":" + gatewayPort + resource + "/nodenetwork/nodes"));
-                    response=webResource.accept("application/json").get(ClientResponse.class);
-                    NodeNetwork nodeNetwork=response.getEntity(NodeNetwork.class);
+                    /*webResource=client.resource(URI.create("http://" + gateway + ":" + gatewayPort + resource + "/nodenetwork/nodes"));
+                    response=webResource.accept("application/json").get(ClientResponse.class);*/
+                    NodeNetwork nodeNetwork=addNodeResponse.getEntity(NodeNetwork.class);
                     System.out.println("ho "+nodeNetwork.countNodes()+ "nodi");
                     //prima di far partire il server il nodo deve sapere attraverso la conoscenza locale il suo next e prev attuale
                     networkHandler.setNodes(nodeNetwork.getNodes());
-                    tokenHandler.setNetworkSize(nodeNetwork.countNodes());
+                    int count=nodeNetwork.countNodes();
+                    if(count==2){
+                        tokenHandler.createToken=true;
+                    }
+                    tokenHandler.setNetworkSize(count);
                     networkHandler.next=networkHandler.findNext(node);
                     tokenHandler.setDestination(networkHandler.getNext());
                     networkHandler.previous=networkHandler.findPrev(node);
@@ -92,14 +95,18 @@ public class Nodo {
                     break;
                 }catch (java.net.BindException exception){
                     continue;
+                }catch (java.io.IOException ioe){
+                    continue;
                 }
             }while (true);
 
             ThreadHandler threadHandler =new ThreadHandler();
             networkHandler.setThreadHandler(threadHandler);
+            tokenHandler.setThreadHandler(threadHandler);
             Thread networkThread=new Thread(networkHandler);
+            Thread tokenThread=new Thread(tokenHandler);
             networkThread.start();
-
+            tokenThread.start();
 
             BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
             String check;

@@ -8,11 +8,11 @@ public class Measurement {
 
     String sensorId;
     float value;
-    Timestamp timestamp;
+    long timestamp;
 
     public Measurement(){}
 
-    public Measurement(String sensorId, float value, Timestamp timestamp){
+    public Measurement(String sensorId, float value, long timestamp){
         this.sensorId=sensorId;
         this.value=value;
         this.timestamp=timestamp;
@@ -30,10 +30,10 @@ public class Measurement {
         this.sensorId = sensorId;
     }
 
-    public Timestamp getTimestamp() {
+    public long getTimestamp() {
         return timestamp;
     }
-    public void setTimestamp(Timestamp timestamp) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 }

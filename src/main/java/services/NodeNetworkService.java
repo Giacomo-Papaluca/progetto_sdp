@@ -19,7 +19,7 @@ public class NodeNetworkService {
     public Response addNode(Node node){
         boolean check= NodeNetwork.getInstance().addNode(node);
         if(check){
-            return Response.ok(node).build();
+            return Response.ok(NodeNetwork.getInstance()).build();
         }
         else{
             return Response.status(Response.Status.BAD_REQUEST).build();

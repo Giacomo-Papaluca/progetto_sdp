@@ -9,7 +9,7 @@ import java.util.List;
 public class BufferImpl implements Buffer {
 
     List<Measurement> buffer;
-    double aggregated_value;
+    float aggregated_value;
     long most_recent_timestamp;
 
     public BufferImpl(){
@@ -18,7 +18,7 @@ public class BufferImpl implements Buffer {
     }
 
     @Override
-    public void addMeasurement(Measurement m) {
+    public synchronized void addMeasurement(Measurement m) {
         buffer.add(m);
         if (buffer.size()==12){
             int sum=0;
@@ -28,6 +28,7 @@ public class BufferImpl implements Buffer {
             aggregated_value=sum/buffer.size();
             most_recent_timestamp=m.getTimestamp();
             buffer.subList(0,6).clear();
+            notify();
         }
     }
 
@@ -36,11 +37,19 @@ public class BufferImpl implements Buffer {
         return buffer.subList(s-n, s);
     }
 
-    public double getAggregatedValue(){
+    public float getAggregatedValue(){
         return aggregated_value;
     }
 
     public long getMostRecentTimestamp() {
         return most_recent_timestamp;
+    }
+
+    public synchronized void waitForMeasurement() {
+        try {
+            this.wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

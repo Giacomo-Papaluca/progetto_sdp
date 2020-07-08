@@ -10,8 +10,9 @@ message Node {
 
 message Token{
   int32 hopCount=1;
-  double aggregatedValue=2;
+  float aggregatedValue=2;
   Node starter=3;
+  bool hasAggregatedValue=4;
 }
 
 message TokenResponse{
@@ -20,5 +21,5 @@ message TokenResponse{
 }
 
 service SendToken{
-  rpc send (stream Token) returns (stream TokenResponse) {}
+  rpc send (Token) returns (TokenResponse) {}
 }

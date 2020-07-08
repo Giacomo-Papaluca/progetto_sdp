@@ -11,25 +11,12 @@ import java.util.*;
 public class Statistics {
 
     @XmlElement (name="measurement")
-    SortedSet<Measurement> measurements;
+    List<Measurement> measurements;
 
     private static Statistics instance;
 
     public  Statistics(){
-        this.measurements=new TreeSet<Measurement>(new Comparator<Measurement>() {
-            public int compare(Measurement a, Measurement b) {
-                int chaeck= a.timestamp.compareTo(b.timestamp);
-                if(chaeck<0){
-                    return 1;
-                }
-                else if(chaeck==0){
-                    return 0;
-                }
-                else{
-                    return -1;
-                }
-            }
-        });
+        this.measurements=new ArrayList<Measurement>();
     }
 
     public static synchronized Statistics getInstance(){
@@ -40,12 +27,15 @@ public class Statistics {
     }
 
     public synchronized List<Measurement> getLastStatistics(int n){
-        List<Measurement> picture=new ArrayList<Measurement>(measurements);
-        return picture.subList(0,n);
+        try {
+            return new ArrayList<Measurement>(measurements.subList(0, n));
+        }catch (java.lang.IndexOutOfBoundsException e){
+            return new ArrayList<>();
+        }
     }
 
-    public float getMean(int n) {
-        List<Measurement> stats= this.getLastStatistics(n);
+    public synchronized float getMean(int n) {
+        List<Measurement> stats= getLastStatistics(n);
         float sum=0;
         for (Measurement m: stats) {
             sum+=m.value;
@@ -53,7 +43,7 @@ public class Statistics {
         return sum/stats.size();
     }
 
-    public float getStd(int n) {
+    public synchronized float getStd(int n) {
         List<Measurement> stats=this.getLastStatistics(n);
         float mean=this.getMean(n);
         float sum=0;
@@ -64,7 +54,7 @@ public class Statistics {
     }
 
     public synchronized void addMeasurement(Measurement measurement){
-        this.measurements.add(measurement);
+        measurements.add(0, measurement);
     }
 
 }

@@ -7,9 +7,11 @@ import java.io.InputStreamReader;
 public class ThreadHandler {
 
     boolean exit;
+    boolean destinaitonSet;
 
     ThreadHandler(){
         exit=false;
+        destinaitonSet=false;
     }
 
     public synchronized void waitForUser() {
@@ -24,6 +26,21 @@ public class ThreadHandler {
 
     public synchronized void notifyExit() {
         exit=true;
-        notify();
+        notifyAll();
+    }
+
+    public synchronized void waitForDestination() {
+        try{
+            while (!destinaitonSet){
+                wait();
+            }
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
+    }
+
+    public synchronized void notifyDestinationSet() {
+        destinaitonSet=true;
+        notifyAll();
     }
 }

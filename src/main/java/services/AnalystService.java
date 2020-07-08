@@ -1,43 +1,52 @@
 package services;
 
+import beans.Measurement;
 import beans.NodeNetwork;
 import beans.Statistics;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
+import javax.ws.rs.core.GenericEntity;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("analyst")
 public class AnalystService {
 
     @Path("get/size")
     @GET
-    @Produces("*/*")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getNumberOfNodes(){
-        return Response.ok(NodeNetwork.getInstance().countNodes()).build();
+        Integer val=NodeNetwork.getInstance().countNodes();
+        GenericEntity<Integer> genericEntity = new GenericEntity<Integer>(val){};
+        return Response.ok(genericEntity).build();
     }
 
     @Path("get/statistics/{n}")
     @GET
-    @Produces("*/*")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getLastStatistics(@PathParam("n") int n){
-        return Response.ok(Statistics.getInstance().getLastStatistics(n)).build();
+        List<Measurement> list= Statistics.getInstance().getLastStatistics(n);
+        GenericEntity<List<Measurement>> genericEntity= new GenericEntity<List<Measurement>>(list){};
+        return Response.ok(genericEntity).build();
     }
 
     @Path("get/mean/{n}")
     @GET
-    @Produces("*/*")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getMean(@PathParam("n") int n){
-        return Response.ok(Statistics.getInstance().getMean(n)).build();
+        Float mean=Statistics.getInstance().getMean(n);
+        GenericEntity<Float> genericEntity= new GenericEntity<Float>(mean){};
+        return Response.ok(genericEntity).build();
     }
 
     @Path("get/std/{n}")
     @GET
-    @Produces("*/*")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getStd(@PathParam("n") int n){
-        return Response.ok(Statistics.getInstance().getStd(n)).build();
+        Float std=Statistics.getInstance().getStd(n);
+        GenericEntity<Float> genericEntity= new GenericEntity<Float>(std){};
+        return Response.ok(genericEntity).build();
     }
 
 }
