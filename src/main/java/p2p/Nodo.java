@@ -52,17 +52,19 @@ public class Nodo {
         Simulator sensorSimulator = new PM10Simulator(buffer);
         sensorSimulator.start();
         System.out.println("Sensing started...\n");
+        Client client = Client.create();
+        WebResource webResource;
+        Node node=new Node();
         try {
-            Client client = Client.create();
-            WebResource webResource;
             ClientResponse response;
             NetworkHandler networkHandler = new NetworkHandler();
             TokenHandler tokenHandler = new TokenHandler(buffer);
             networkHandler.setTokenHandler(tokenHandler);
+            tokenHandler.setNetworkHandler(networkHandler);
             Server server;
             int nodePort;
             Random r=new Random();
-            Node node;
+            boolean createToken=false;
             do {
                 nodePort=r.nextInt(maxPort-minPort) + minPort;
                 try {
@@ -83,10 +85,15 @@ public class Nodo {
                     System.out.println("ho "+nodeNetwork.countNodes()+ "nodi");
                     //prima di far partire il server il nodo deve sapere attraverso la conoscenza locale il suo next e prev attuale
                     networkHandler.setNodes(nodeNetwork.getNodes());
-                    int count=nodeNetwork.countNodes();
+                    int count=networkHandler.getNodes().size();
                     if(count==2){
-                        tokenHandler.createToken=true;
+                        createToken=true;
+                        networkHandler.justTwo=true;
                     }
+                    tokenHandler.createToken=createToken;   //anche se molto poco probabile il secondo nodo generato potrebbe
+                                                            //avere la stessa porta del primo e quindi ripetere l'ingresso attraverso il
+                                                            //gateway. Per garantire la creazione del token voglio che il nodo crei il token
+                                                            //se almeno una volta ha ricevuto la lista con 2 nodi
                     tokenHandler.setNetworkSize(count);
                     networkHandler.next=networkHandler.findNext(node);
                     tokenHandler.setDestination(networkHandler.getNext());
@@ -114,8 +121,8 @@ public class Nodo {
                 check=br.readLine();
             }while(!check.toLowerCase().equals("exit"));
 
-            webResource = client.resource(URI.create("http://" + gateway + ":" + gatewayPort + resource + "/nodenetwork/remove/node"));
-            webResource.accept(MediaType.APPLICATION_JSON).post(String.class, node.getId());
+            /*webResource = client.resource(URI.create("http://" + gateway + ":" + gatewayPort + resource + "/nodenetwork/remove/node"));
+            webResource.accept(MediaType.APPLICATION_JSON).post(String.class, node.getId());*/
 
             threadHandler.notifyExit();
 
@@ -125,6 +132,10 @@ public class Nodo {
             e.printStackTrace();
         } finally {
             sensorSimulator.stopMeGently();
+            System.out.println("esco");
+            webResource = client.resource(URI.create("http://" + gateway + ":" + gatewayPort + resource + "/nodenetwork/remove/node"));
+            webResource.accept(MediaType.APPLICATION_JSON).post(String.class, node.getId());
+
         }
 
     }

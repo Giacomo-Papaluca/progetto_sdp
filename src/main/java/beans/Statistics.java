@@ -35,22 +35,30 @@ public class Statistics {
     }
 
     public synchronized float getMean(int n) {
-        List<Measurement> stats= getLastStatistics(n);
-        float sum=0;
-        for (Measurement m: stats) {
-            sum+=m.value;
+        try {
+            List<Measurement> stats = getLastStatistics(n);
+            float sum = 0;
+            for (Measurement m : stats) {
+                sum += m.value;
+            }
+            return sum / stats.size();
+        }catch (java.lang.IndexOutOfBoundsException e){
+            return -1;
         }
-        return sum/stats.size();
     }
 
     public synchronized float getStd(int n) {
-        List<Measurement> stats=this.getLastStatistics(n);
-        float mean=this.getMean(n);
-        float sum=0;
-        for (Measurement m: stats) {
-            sum+=Math.pow(m.value-mean, 2);
+        try {
+            List<Measurement> stats = this.getLastStatistics(n);
+            float mean = this.getMean(n);
+            float sum = 0;
+            for (Measurement m : stats) {
+                sum += Math.pow(m.value - mean, 2);
+            }
+            return (float) Math.sqrt(sum / (stats.size() - 1));
+        }catch (IndexOutOfBoundsException e){
+            return -1;
         }
-        return (float) Math.sqrt(sum/(stats.size()-1));
     }
 
     public synchronized void addMeasurement(Measurement measurement){

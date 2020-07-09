@@ -17,8 +17,8 @@ public class NodeNetworkService {
     @POST
     @Consumes("*/*")
     public Response addNode(Node node){
-        boolean check= NodeNetwork.getInstance().addNode(node);
-        if(check){
+        NodeNetwork check= NodeNetwork.getInstance().addNode(node);
+        if(check!=null){
             return Response.ok(NodeNetwork.getInstance()).build();
         }
         else{

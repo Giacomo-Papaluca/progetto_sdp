@@ -16,10 +16,9 @@ public class AnalystService {
     @Path("get/size")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getNumberOfNodes(){
-        Integer val=NodeNetwork.getInstance().countNodes();
-        GenericEntity<Integer> genericEntity = new GenericEntity<Integer>(val){};
-        return Response.ok(genericEntity).build();
+    public String getNumberOfNodes(){
+        int val=NodeNetwork.getInstance().countNodes();
+        return String.valueOf(val);
     }
 
     @Path("get/statistics/{n}")
@@ -28,25 +27,33 @@ public class AnalystService {
     public Response getLastStatistics(@PathParam("n") int n){
         List<Measurement> list= Statistics.getInstance().getLastStatistics(n);
         GenericEntity<List<Measurement>> genericEntity= new GenericEntity<List<Measurement>>(list){};
-        return Response.ok(genericEntity).build();
+        return Response.ok().entity(genericEntity).build();
     }
 
     @Path("get/mean/{n}")
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getMean(@PathParam("n") int n){
-        Float mean=Statistics.getInstance().getMean(n);
-        GenericEntity<Float> genericEntity= new GenericEntity<Float>(mean){};
-        return Response.ok(genericEntity).build();
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getMean(@PathParam("n") int n){
+        float mean =Statistics.getInstance().getMean(n);
+        if(mean>=0) {
+            return String.valueOf(mean);
+        }
+        else {
+            return "NaN";
+        }
     }
 
     @Path("get/std/{n}")
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getStd(@PathParam("n") int n){
-        Float std=Statistics.getInstance().getStd(n);
-        GenericEntity<Float> genericEntity= new GenericEntity<Float>(std){};
-        return Response.ok(genericEntity).build();
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getStd(@PathParam("n") int n){
+        float std=Statistics.getInstance().getStd(n);
+        if(std>=0){
+           return String.valueOf(std);
+        }
+        else {
+            return "NaN";
+        }
     }
 
 }

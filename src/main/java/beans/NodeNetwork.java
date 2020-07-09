@@ -35,9 +35,9 @@ public class NodeNetwork {
         return getNodes().size();
     }
 
-    public synchronized boolean addNode(Node node){
+    public synchronized NodeNetwork addNode(Node node){
         List<Node> copy=this.getNodes();
-        boolean ret=false;
+        NodeNetwork ret=null;
         String nodeId = node.getId();
         if(!containsDuplicatedID(copy, nodeId)){
             int i;
@@ -47,7 +47,7 @@ public class NodeNetwork {
                 }
             }
             this.getInstance().nodes.add(i, node);
-            ret=true;
+            ret=this.getInstance();
         }
         return ret;
     }
