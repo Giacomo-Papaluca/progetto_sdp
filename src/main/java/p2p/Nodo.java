@@ -101,8 +101,12 @@ public class Nodo {
                     server.start();
                     break;
                 }catch (java.net.BindException exception){
+                    webResource = client.resource(URI.create("http://" + gateway + ":" + gatewayPort + resource + "/nodenetwork/remove/node/"+node.getId()));
+                    webResource.accept(MediaType.APPLICATION_JSON).delete();
                     continue;
                 }catch (java.io.IOException ioe){
+                    webResource = client.resource(URI.create("http://" + gateway + ":" + gatewayPort + resource + "/nodenetwork/remove/node/"+node.getId()));
+                    webResource.accept(MediaType.APPLICATION_JSON).delete();
                     continue;
                 }
             }while (true);
@@ -133,8 +137,8 @@ public class Nodo {
         } finally {
             sensorSimulator.stopMeGently();
             System.out.println("esco");
-            webResource = client.resource(URI.create("http://" + gateway + ":" + gatewayPort + resource + "/nodenetwork/remove/node"));
-            webResource.accept(MediaType.APPLICATION_JSON).post(String.class, node.getId());
+            webResource = client.resource(URI.create("http://" + gateway + ":" + gatewayPort + resource + "/nodenetwork/remove/node/"+node.getId()));
+            webResource.accept(MediaType.APPLICATION_JSON).delete();
 
         }
 

@@ -41,10 +41,9 @@ public class NodeNetworkService {
        return Response.ok(NodeNetwork.getInstance()).build();
     }
 
-    @Path("remove/node")
-    @POST
-    @Consumes(MediaType.TEXT_PLAIN)
-    public Response removeNode(String nodeId){
+    @Path("remove/node/{id}")
+    @DELETE
+    public Response removeNode(@PathParam("id") String nodeId){
         boolean check=NodeNetwork.getInstance().removeNode(nodeId);
         if(check) {
             return Response.ok(NodeNetwork.getInstance()).build();
