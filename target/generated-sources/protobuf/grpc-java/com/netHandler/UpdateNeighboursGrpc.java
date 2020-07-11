@@ -29,15 +29,15 @@ public final class UpdateNeighboursGrpc {
   // Static method descriptors that strictly reflect the proto.
   @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
   public static final io.grpc.MethodDescriptor<com.netHandler.RingNetworkHandler.UpdateNeighboursMessage,
-      com.netHandler.RingNetworkHandler.UpdateNeighboursMessage> METHOD_UPDATE =
-      io.grpc.MethodDescriptor.<com.netHandler.RingNetworkHandler.UpdateNeighboursMessage, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage>newBuilder()
-          .setType(io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
+      com.netHandler.RingNetworkHandler.UpdateNeighboursResponse> METHOD_UPDATE =
+      io.grpc.MethodDescriptor.<com.netHandler.RingNetworkHandler.UpdateNeighboursMessage, com.netHandler.RingNetworkHandler.UpdateNeighboursResponse>newBuilder()
+          .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
           .setFullMethodName(generateFullMethodName(
               "com.netHandler.UpdateNeighbours", "update"))
           .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
               com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.getDefaultInstance()))
           .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.getDefaultInstance()))
+              com.netHandler.RingNetworkHandler.UpdateNeighboursResponse.getDefaultInstance()))
           .setSchemaDescriptor(new UpdateNeighboursMethodDescriptorSupplier("update"))
           .build();
 
@@ -70,19 +70,19 @@ public final class UpdateNeighboursGrpc {
 
     /**
      */
-    public io.grpc.stub.StreamObserver<com.netHandler.RingNetworkHandler.UpdateNeighboursMessage> update(
-        io.grpc.stub.StreamObserver<com.netHandler.RingNetworkHandler.UpdateNeighboursMessage> responseObserver) {
-      return asyncUnimplementedStreamingCall(METHOD_UPDATE, responseObserver);
+    public void update(com.netHandler.RingNetworkHandler.UpdateNeighboursMessage request,
+        io.grpc.stub.StreamObserver<com.netHandler.RingNetworkHandler.UpdateNeighboursResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(METHOD_UPDATE, responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
             METHOD_UPDATE,
-            asyncBidiStreamingCall(
+            asyncUnaryCall(
               new MethodHandlers<
                 com.netHandler.RingNetworkHandler.UpdateNeighboursMessage,
-                com.netHandler.RingNetworkHandler.UpdateNeighboursMessage>(
+                com.netHandler.RingNetworkHandler.UpdateNeighboursResponse>(
                   this, METHODID_UPDATE)))
           .build();
     }
@@ -108,10 +108,10 @@ public final class UpdateNeighboursGrpc {
 
     /**
      */
-    public io.grpc.stub.StreamObserver<com.netHandler.RingNetworkHandler.UpdateNeighboursMessage> update(
-        io.grpc.stub.StreamObserver<com.netHandler.RingNetworkHandler.UpdateNeighboursMessage> responseObserver) {
-      return asyncBidiStreamingCall(
-          getChannel().newCall(METHOD_UPDATE, getCallOptions()), responseObserver);
+    public void update(com.netHandler.RingNetworkHandler.UpdateNeighboursMessage request,
+        io.grpc.stub.StreamObserver<com.netHandler.RingNetworkHandler.UpdateNeighboursResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_UPDATE, getCallOptions()), request, responseObserver);
     }
   }
 
@@ -132,6 +132,13 @@ public final class UpdateNeighboursGrpc {
         io.grpc.CallOptions callOptions) {
       return new UpdateNeighboursBlockingStub(channel, callOptions);
     }
+
+    /**
+     */
+    public com.netHandler.RingNetworkHandler.UpdateNeighboursResponse update(com.netHandler.RingNetworkHandler.UpdateNeighboursMessage request) {
+      return blockingUnaryCall(
+          getChannel(), METHOD_UPDATE, getCallOptions(), request);
+    }
   }
 
   /**
@@ -150,6 +157,14 @@ public final class UpdateNeighboursGrpc {
     protected UpdateNeighboursFutureStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new UpdateNeighboursFutureStub(channel, callOptions);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.netHandler.RingNetworkHandler.UpdateNeighboursResponse> update(
+        com.netHandler.RingNetworkHandler.UpdateNeighboursMessage request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_UPDATE, getCallOptions()), request);
     }
   }
 
@@ -172,6 +187,10 @@ public final class UpdateNeighboursGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_UPDATE:
+          serviceImpl.update((com.netHandler.RingNetworkHandler.UpdateNeighboursMessage) request,
+              (io.grpc.stub.StreamObserver<com.netHandler.RingNetworkHandler.UpdateNeighboursResponse>) responseObserver);
+          break;
         default:
           throw new AssertionError();
       }
@@ -182,9 +201,6 @@ public final class UpdateNeighboursGrpc {
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_UPDATE:
-          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.update(
-              (io.grpc.stub.StreamObserver<com.netHandler.RingNetworkHandler.UpdateNeighboursMessage>) responseObserver);
         default:
           throw new AssertionError();
       }

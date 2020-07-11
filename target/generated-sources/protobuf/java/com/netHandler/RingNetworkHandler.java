@@ -14,80 +14,778 @@ public final class RingNetworkHandler {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
+  public interface NodeOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.netHandler.Node)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string id = 1;</code>
+     */
+    java.lang.String getId();
+    /**
+     * <code>string id = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getIdBytes();
+
+    /**
+     * <code>string address = 2;</code>
+     */
+    java.lang.String getAddress();
+    /**
+     * <code>string address = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getAddressBytes();
+
+    /**
+     * <code>int32 port = 3;</code>
+     */
+    int getPort();
+  }
+  /**
+   * Protobuf type {@code com.netHandler.Node}
+   */
+  public  static final class Node extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.netHandler.Node)
+      NodeOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Node.newBuilder() to construct.
+    private Node(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Node() {
+      id_ = "";
+      address_ = "";
+      port_ = 0;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Node(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              id_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              address_ = s;
+              break;
+            }
+            case 24: {
+
+              port_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.netHandler.RingNetworkHandler.internal_static_com_netHandler_Node_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.netHandler.RingNetworkHandler.internal_static_com_netHandler_Node_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.netHandler.RingNetworkHandler.Node.class, com.netHandler.RingNetworkHandler.Node.Builder.class);
+    }
+
+    public static final int ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object id_;
+    /**
+     * <code>string id = 1;</code>
+     */
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        id_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string id = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        id_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ADDRESS_FIELD_NUMBER = 2;
+    private volatile java.lang.Object address_;
+    /**
+     * <code>string address = 2;</code>
+     */
+    public java.lang.String getAddress() {
+      java.lang.Object ref = address_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        address_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string address = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getAddressBytes() {
+      java.lang.Object ref = address_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        address_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PORT_FIELD_NUMBER = 3;
+    private int port_;
+    /**
+     * <code>int32 port = 3;</code>
+     */
+    public int getPort() {
+      return port_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
+      }
+      if (!getAddressBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, address_);
+      }
+      if (port_ != 0) {
+        output.writeInt32(3, port_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+      }
+      if (!getAddressBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, address_);
+      }
+      if (port_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, port_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.netHandler.RingNetworkHandler.Node)) {
+        return super.equals(obj);
+      }
+      com.netHandler.RingNetworkHandler.Node other = (com.netHandler.RingNetworkHandler.Node) obj;
+
+      boolean result = true;
+      result = result && getId()
+          .equals(other.getId());
+      result = result && getAddress()
+          .equals(other.getAddress());
+      result = result && (getPort()
+          == other.getPort());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + getId().hashCode();
+      hash = (37 * hash) + ADDRESS_FIELD_NUMBER;
+      hash = (53 * hash) + getAddress().hashCode();
+      hash = (37 * hash) + PORT_FIELD_NUMBER;
+      hash = (53 * hash) + getPort();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.netHandler.RingNetworkHandler.Node parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.netHandler.RingNetworkHandler.Node parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.netHandler.RingNetworkHandler.Node parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.netHandler.RingNetworkHandler.Node parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.netHandler.RingNetworkHandler.Node parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.netHandler.RingNetworkHandler.Node parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.netHandler.RingNetworkHandler.Node parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.netHandler.RingNetworkHandler.Node parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.netHandler.RingNetworkHandler.Node parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.netHandler.RingNetworkHandler.Node parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.netHandler.RingNetworkHandler.Node parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.netHandler.RingNetworkHandler.Node parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.netHandler.RingNetworkHandler.Node prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.netHandler.Node}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.netHandler.Node)
+        com.netHandler.RingNetworkHandler.NodeOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.netHandler.RingNetworkHandler.internal_static_com_netHandler_Node_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.netHandler.RingNetworkHandler.internal_static_com_netHandler_Node_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.netHandler.RingNetworkHandler.Node.class, com.netHandler.RingNetworkHandler.Node.Builder.class);
+      }
+
+      // Construct using com.netHandler.RingNetworkHandler.Node.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        id_ = "";
+
+        address_ = "";
+
+        port_ = 0;
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.netHandler.RingNetworkHandler.internal_static_com_netHandler_Node_descriptor;
+      }
+
+      public com.netHandler.RingNetworkHandler.Node getDefaultInstanceForType() {
+        return com.netHandler.RingNetworkHandler.Node.getDefaultInstance();
+      }
+
+      public com.netHandler.RingNetworkHandler.Node build() {
+        com.netHandler.RingNetworkHandler.Node result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.netHandler.RingNetworkHandler.Node buildPartial() {
+        com.netHandler.RingNetworkHandler.Node result = new com.netHandler.RingNetworkHandler.Node(this);
+        result.id_ = id_;
+        result.address_ = address_;
+        result.port_ = port_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.netHandler.RingNetworkHandler.Node) {
+          return mergeFrom((com.netHandler.RingNetworkHandler.Node)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.netHandler.RingNetworkHandler.Node other) {
+        if (other == com.netHandler.RingNetworkHandler.Node.getDefaultInstance()) return this;
+        if (!other.getId().isEmpty()) {
+          id_ = other.id_;
+          onChanged();
+        }
+        if (!other.getAddress().isEmpty()) {
+          address_ = other.address_;
+          onChanged();
+        }
+        if (other.getPort() != 0) {
+          setPort(other.getPort());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.netHandler.RingNetworkHandler.Node parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.netHandler.RingNetworkHandler.Node) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object id_ = "";
+      /**
+       * <code>string id = 1;</code>
+       */
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          id_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string id = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getIdBytes() {
+        java.lang.Object ref = id_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          id_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string id = 1;</code>
+       */
+      public Builder setId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 1;</code>
+       */
+      public Builder clearId() {
+        
+        id_ = getDefaultInstance().getId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 1;</code>
+       */
+      public Builder setIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        id_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object address_ = "";
+      /**
+       * <code>string address = 2;</code>
+       */
+      public java.lang.String getAddress() {
+        java.lang.Object ref = address_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          address_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string address = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getAddressBytes() {
+        java.lang.Object ref = address_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          address_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string address = 2;</code>
+       */
+      public Builder setAddress(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        address_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string address = 2;</code>
+       */
+      public Builder clearAddress() {
+        
+        address_ = getDefaultInstance().getAddress();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string address = 2;</code>
+       */
+      public Builder setAddressBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        address_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int port_ ;
+      /**
+       * <code>int32 port = 3;</code>
+       */
+      public int getPort() {
+        return port_;
+      }
+      /**
+       * <code>int32 port = 3;</code>
+       */
+      public Builder setPort(int value) {
+        
+        port_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 port = 3;</code>
+       */
+      public Builder clearPort() {
+        
+        port_ = 0;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.netHandler.Node)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.netHandler.Node)
+    private static final com.netHandler.RingNetworkHandler.Node DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.netHandler.RingNetworkHandler.Node();
+    }
+
+    public static com.netHandler.RingNetworkHandler.Node getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Node>
+        PARSER = new com.google.protobuf.AbstractParser<Node>() {
+      public Node parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Node(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Node> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Node> getParserForType() {
+      return PARSER;
+    }
+
+    public com.netHandler.RingNetworkHandler.Node getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface UpdateNeighboursMessageOrBuilder extends
       // @@protoc_insertion_point(interface_extends:com.netHandler.UpdateNeighboursMessage)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-     */
-    java.util.List<com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node> 
-        getNetworkList();
-    /**
-     * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-     */
-    com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node getNetwork(int index);
-    /**
-     * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-     */
-    int getNetworkCount();
-    /**
-     * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-     */
-    java.util.List<? extends com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder> 
-        getNetworkOrBuilderList();
-    /**
-     * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-     */
-    com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder getNetworkOrBuilder(
-        int index);
-
-    /**
-     * <code>.com.netHandler.UpdateNeighboursMessage.Node previous = 2;</code>
+     * <code>.com.netHandler.Node previous = 1;</code>
      */
     boolean hasPrevious();
     /**
-     * <code>.com.netHandler.UpdateNeighboursMessage.Node previous = 2;</code>
+     * <code>.com.netHandler.Node previous = 1;</code>
      */
-    com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node getPrevious();
+    com.netHandler.RingNetworkHandler.Node getPrevious();
     /**
-     * <code>.com.netHandler.UpdateNeighboursMessage.Node previous = 2;</code>
+     * <code>.com.netHandler.Node previous = 1;</code>
      */
-    com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder getPreviousOrBuilder();
+    com.netHandler.RingNetworkHandler.NodeOrBuilder getPreviousOrBuilder();
 
     /**
-     * <code>.com.netHandler.UpdateNeighboursMessage.Node from = 3;</code>
+     * <code>.com.netHandler.Node from = 2;</code>
      */
     boolean hasFrom();
     /**
-     * <code>.com.netHandler.UpdateNeighboursMessage.Node from = 3;</code>
+     * <code>.com.netHandler.Node from = 2;</code>
      */
-    com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node getFrom();
+    com.netHandler.RingNetworkHandler.Node getFrom();
     /**
-     * <code>.com.netHandler.UpdateNeighboursMessage.Node from = 3;</code>
+     * <code>.com.netHandler.Node from = 2;</code>
      */
-    com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder getFromOrBuilder();
+    com.netHandler.RingNetworkHandler.NodeOrBuilder getFromOrBuilder();
 
     /**
-     * <code>.com.netHandler.UpdateNeighboursMessage.Node next = 4;</code>
+     * <code>.com.netHandler.Node next = 3;</code>
      */
     boolean hasNext();
     /**
-     * <code>.com.netHandler.UpdateNeighboursMessage.Node next = 4;</code>
+     * <code>.com.netHandler.Node next = 3;</code>
      */
-    com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node getNext();
+    com.netHandler.RingNetworkHandler.Node getNext();
     /**
-     * <code>.com.netHandler.UpdateNeighboursMessage.Node next = 4;</code>
+     * <code>.com.netHandler.Node next = 3;</code>
      */
-    com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder getNextOrBuilder();
+    com.netHandler.RingNetworkHandler.NodeOrBuilder getNextOrBuilder();
 
     /**
-     * <code>bool exiting = 5;</code>
+     * <code>bool exiting = 4;</code>
      */
     boolean getExiting();
 
     /**
-     * <code>bool entering = 6;</code>
+     * <code>bool entering = 5;</code>
      */
     boolean getEntering();
   }
@@ -104,7 +802,6 @@ public final class RingNetworkHandler {
       super(builder);
     }
     private UpdateNeighboursMessage() {
-      network_ = java.util.Collections.emptyList();
       exiting_ = false;
       entering_ = false;
     }
@@ -138,20 +835,11 @@ public final class RingNetworkHandler {
               break;
             }
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-                network_ = new java.util.ArrayList<com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node>();
-                mutable_bitField0_ |= 0x00000001;
-              }
-              network_.add(
-                  input.readMessage(com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.parser(), extensionRegistry));
-              break;
-            }
-            case 18: {
-              com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder subBuilder = null;
+              com.netHandler.RingNetworkHandler.Node.Builder subBuilder = null;
               if (previous_ != null) {
                 subBuilder = previous_.toBuilder();
               }
-              previous_ = input.readMessage(com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.parser(), extensionRegistry);
+              previous_ = input.readMessage(com.netHandler.RingNetworkHandler.Node.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(previous_);
                 previous_ = subBuilder.buildPartial();
@@ -159,12 +847,12 @@ public final class RingNetworkHandler {
 
               break;
             }
-            case 26: {
-              com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder subBuilder = null;
+            case 18: {
+              com.netHandler.RingNetworkHandler.Node.Builder subBuilder = null;
               if (from_ != null) {
                 subBuilder = from_.toBuilder();
               }
-              from_ = input.readMessage(com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.parser(), extensionRegistry);
+              from_ = input.readMessage(com.netHandler.RingNetworkHandler.Node.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(from_);
                 from_ = subBuilder.buildPartial();
@@ -172,12 +860,12 @@ public final class RingNetworkHandler {
 
               break;
             }
-            case 34: {
-              com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder subBuilder = null;
+            case 26: {
+              com.netHandler.RingNetworkHandler.Node.Builder subBuilder = null;
               if (next_ != null) {
                 subBuilder = next_.toBuilder();
               }
-              next_ = input.readMessage(com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.parser(), extensionRegistry);
+              next_ = input.readMessage(com.netHandler.RingNetworkHandler.Node.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(next_);
                 next_ = subBuilder.buildPartial();
@@ -185,12 +873,12 @@ public final class RingNetworkHandler {
 
               break;
             }
-            case 40: {
+            case 32: {
 
               exiting_ = input.readBool();
               break;
             }
-            case 48: {
+            case 40: {
 
               entering_ = input.readBool();
               break;
@@ -203,9 +891,6 @@ public final class RingNetworkHandler {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-          network_ = java.util.Collections.unmodifiableList(network_);
-        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -222,840 +907,82 @@ public final class RingNetworkHandler {
               com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.class, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Builder.class);
     }
 
-    public interface NodeOrBuilder extends
-        // @@protoc_insertion_point(interface_extends:com.netHandler.UpdateNeighboursMessage.Node)
-        com.google.protobuf.MessageOrBuilder {
-
-      /**
-       * <code>string id = 1;</code>
-       */
-      java.lang.String getId();
-      /**
-       * <code>string id = 1;</code>
-       */
-      com.google.protobuf.ByteString
-          getIdBytes();
-
-      /**
-       * <code>string address = 2;</code>
-       */
-      java.lang.String getAddress();
-      /**
-       * <code>string address = 2;</code>
-       */
-      com.google.protobuf.ByteString
-          getAddressBytes();
-
-      /**
-       * <code>int32 port = 3;</code>
-       */
-      int getPort();
-    }
+    public static final int PREVIOUS_FIELD_NUMBER = 1;
+    private com.netHandler.RingNetworkHandler.Node previous_;
     /**
-     * Protobuf type {@code com.netHandler.UpdateNeighboursMessage.Node}
-     */
-    public  static final class Node extends
-        com.google.protobuf.GeneratedMessageV3 implements
-        // @@protoc_insertion_point(message_implements:com.netHandler.UpdateNeighboursMessage.Node)
-        NodeOrBuilder {
-    private static final long serialVersionUID = 0L;
-      // Use Node.newBuilder() to construct.
-      private Node(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-        super(builder);
-      }
-      private Node() {
-        id_ = "";
-        address_ = "";
-        port_ = 0;
-      }
-
-      @java.lang.Override
-      public final com.google.protobuf.UnknownFieldSet
-      getUnknownFields() {
-        return this.unknownFields;
-      }
-      private Node(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        this();
-        int mutable_bitField0_ = 0;
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-            com.google.protobuf.UnknownFieldSet.newBuilder();
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              default: {
-                if (!parseUnknownFieldProto3(
-                    input, unknownFields, extensionRegistry, tag)) {
-                  done = true;
-                }
-                break;
-              }
-              case 10: {
-                java.lang.String s = input.readStringRequireUtf8();
-
-                id_ = s;
-                break;
-              }
-              case 18: {
-                java.lang.String s = input.readStringRequireUtf8();
-
-                address_ = s;
-                break;
-              }
-              case 24: {
-
-                port_ = input.readInt32();
-                break;
-              }
-            }
-          }
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(this);
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(
-              e).setUnfinishedMessage(this);
-        } finally {
-          this.unknownFields = unknownFields.build();
-          makeExtensionsImmutable();
-        }
-      }
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.netHandler.RingNetworkHandler.internal_static_com_netHandler_UpdateNeighboursMessage_Node_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.netHandler.RingNetworkHandler.internal_static_com_netHandler_UpdateNeighboursMessage_Node_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.class, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder.class);
-      }
-
-      public static final int ID_FIELD_NUMBER = 1;
-      private volatile java.lang.Object id_;
-      /**
-       * <code>string id = 1;</code>
-       */
-      public java.lang.String getId() {
-        java.lang.Object ref = id_;
-        if (ref instanceof java.lang.String) {
-          return (java.lang.String) ref;
-        } else {
-          com.google.protobuf.ByteString bs = 
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          id_ = s;
-          return s;
-        }
-      }
-      /**
-       * <code>string id = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getIdBytes() {
-        java.lang.Object ref = id_;
-        if (ref instanceof java.lang.String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          id_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-
-      public static final int ADDRESS_FIELD_NUMBER = 2;
-      private volatile java.lang.Object address_;
-      /**
-       * <code>string address = 2;</code>
-       */
-      public java.lang.String getAddress() {
-        java.lang.Object ref = address_;
-        if (ref instanceof java.lang.String) {
-          return (java.lang.String) ref;
-        } else {
-          com.google.protobuf.ByteString bs = 
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          address_ = s;
-          return s;
-        }
-      }
-      /**
-       * <code>string address = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getAddressBytes() {
-        java.lang.Object ref = address_;
-        if (ref instanceof java.lang.String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          address_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-
-      public static final int PORT_FIELD_NUMBER = 3;
-      private int port_;
-      /**
-       * <code>int32 port = 3;</code>
-       */
-      public int getPort() {
-        return port_;
-      }
-
-      private byte memoizedIsInitialized = -1;
-      public final boolean isInitialized() {
-        byte isInitialized = memoizedIsInitialized;
-        if (isInitialized == 1) return true;
-        if (isInitialized == 0) return false;
-
-        memoizedIsInitialized = 1;
-        return true;
-      }
-
-      public void writeTo(com.google.protobuf.CodedOutputStream output)
-                          throws java.io.IOException {
-        if (!getIdBytes().isEmpty()) {
-          com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
-        }
-        if (!getAddressBytes().isEmpty()) {
-          com.google.protobuf.GeneratedMessageV3.writeString(output, 2, address_);
-        }
-        if (port_ != 0) {
-          output.writeInt32(3, port_);
-        }
-        unknownFields.writeTo(output);
-      }
-
-      public int getSerializedSize() {
-        int size = memoizedSize;
-        if (size != -1) return size;
-
-        size = 0;
-        if (!getIdBytes().isEmpty()) {
-          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
-        }
-        if (!getAddressBytes().isEmpty()) {
-          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, address_);
-        }
-        if (port_ != 0) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(3, port_);
-        }
-        size += unknownFields.getSerializedSize();
-        memoizedSize = size;
-        return size;
-      }
-
-      @java.lang.Override
-      public boolean equals(final java.lang.Object obj) {
-        if (obj == this) {
-         return true;
-        }
-        if (!(obj instanceof com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node)) {
-          return super.equals(obj);
-        }
-        com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node other = (com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node) obj;
-
-        boolean result = true;
-        result = result && getId()
-            .equals(other.getId());
-        result = result && getAddress()
-            .equals(other.getAddress());
-        result = result && (getPort()
-            == other.getPort());
-        result = result && unknownFields.equals(other.unknownFields);
-        return result;
-      }
-
-      @java.lang.Override
-      public int hashCode() {
-        if (memoizedHashCode != 0) {
-          return memoizedHashCode;
-        }
-        int hash = 41;
-        hash = (19 * hash) + getDescriptor().hashCode();
-        hash = (37 * hash) + ID_FIELD_NUMBER;
-        hash = (53 * hash) + getId().hashCode();
-        hash = (37 * hash) + ADDRESS_FIELD_NUMBER;
-        hash = (53 * hash) + getAddress().hashCode();
-        hash = (37 * hash) + PORT_FIELD_NUMBER;
-        hash = (53 * hash) + getPort();
-        hash = (29 * hash) + unknownFields.hashCode();
-        memoizedHashCode = hash;
-        return hash;
-      }
-
-      public static com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node parseFrom(
-          java.nio.ByteBuffer data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-      }
-      public static com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node parseFrom(
-          java.nio.ByteBuffer data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-      }
-      public static com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node parseFrom(
-          com.google.protobuf.ByteString data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-      }
-      public static com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node parseFrom(
-          com.google.protobuf.ByteString data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-      }
-      public static com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node parseFrom(byte[] data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-      }
-      public static com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node parseFrom(
-          byte[] data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-      }
-      public static com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node parseFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input);
-      }
-      public static com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node parseFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input, extensionRegistry);
-      }
-      public static com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node parseDelimitedFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseDelimitedWithIOException(PARSER, input);
-      }
-      public static com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node parseDelimitedFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-      }
-      public static com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node parseFrom(
-          com.google.protobuf.CodedInputStream input)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input);
-      }
-      public static com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node parseFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input, extensionRegistry);
-      }
-
-      public Builder newBuilderForType() { return newBuilder(); }
-      public static Builder newBuilder() {
-        return DEFAULT_INSTANCE.toBuilder();
-      }
-      public static Builder newBuilder(com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node prototype) {
-        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-      }
-      public Builder toBuilder() {
-        return this == DEFAULT_INSTANCE
-            ? new Builder() : new Builder().mergeFrom(this);
-      }
-
-      @java.lang.Override
-      protected Builder newBuilderForType(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        Builder builder = new Builder(parent);
-        return builder;
-      }
-      /**
-       * Protobuf type {@code com.netHandler.UpdateNeighboursMessage.Node}
-       */
-      public static final class Builder extends
-          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-          // @@protoc_insertion_point(builder_implements:com.netHandler.UpdateNeighboursMessage.Node)
-          com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return com.netHandler.RingNetworkHandler.internal_static_com_netHandler_UpdateNeighboursMessage_Node_descriptor;
-        }
-
-        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return com.netHandler.RingNetworkHandler.internal_static_com_netHandler_UpdateNeighboursMessage_Node_fieldAccessorTable
-              .ensureFieldAccessorsInitialized(
-                  com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.class, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder.class);
-        }
-
-        // Construct using com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.newBuilder()
-        private Builder() {
-          maybeForceBuilderInitialization();
-        }
-
-        private Builder(
-            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-          super(parent);
-          maybeForceBuilderInitialization();
-        }
-        private void maybeForceBuilderInitialization() {
-          if (com.google.protobuf.GeneratedMessageV3
-                  .alwaysUseFieldBuilders) {
-          }
-        }
-        public Builder clear() {
-          super.clear();
-          id_ = "";
-
-          address_ = "";
-
-          port_ = 0;
-
-          return this;
-        }
-
-        public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-          return com.netHandler.RingNetworkHandler.internal_static_com_netHandler_UpdateNeighboursMessage_Node_descriptor;
-        }
-
-        public com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node getDefaultInstanceForType() {
-          return com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.getDefaultInstance();
-        }
-
-        public com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node build() {
-          com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(result);
-          }
-          return result;
-        }
-
-        public com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node buildPartial() {
-          com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node result = new com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node(this);
-          result.id_ = id_;
-          result.address_ = address_;
-          result.port_ = port_;
-          onBuilt();
-          return result;
-        }
-
-        public Builder clone() {
-          return (Builder) super.clone();
-        }
-        public Builder setField(
-            com.google.protobuf.Descriptors.FieldDescriptor field,
-            java.lang.Object value) {
-          return (Builder) super.setField(field, value);
-        }
-        public Builder clearField(
-            com.google.protobuf.Descriptors.FieldDescriptor field) {
-          return (Builder) super.clearField(field);
-        }
-        public Builder clearOneof(
-            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-          return (Builder) super.clearOneof(oneof);
-        }
-        public Builder setRepeatedField(
-            com.google.protobuf.Descriptors.FieldDescriptor field,
-            int index, java.lang.Object value) {
-          return (Builder) super.setRepeatedField(field, index, value);
-        }
-        public Builder addRepeatedField(
-            com.google.protobuf.Descriptors.FieldDescriptor field,
-            java.lang.Object value) {
-          return (Builder) super.addRepeatedField(field, value);
-        }
-        public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node) {
-            return mergeFrom((com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node)other);
-          } else {
-            super.mergeFrom(other);
-            return this;
-          }
-        }
-
-        public Builder mergeFrom(com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node other) {
-          if (other == com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.getDefaultInstance()) return this;
-          if (!other.getId().isEmpty()) {
-            id_ = other.id_;
-            onChanged();
-          }
-          if (!other.getAddress().isEmpty()) {
-            address_ = other.address_;
-            onChanged();
-          }
-          if (other.getPort() != 0) {
-            setPort(other.getPort());
-          }
-          this.mergeUnknownFields(other.unknownFields);
-          onChanged();
-          return this;
-        }
-
-        public final boolean isInitialized() {
-          return true;
-        }
-
-        public Builder mergeFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node parsedMessage = null;
-          try {
-            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            parsedMessage = (com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node) e.getUnfinishedMessage();
-            throw e.unwrapIOException();
-          } finally {
-            if (parsedMessage != null) {
-              mergeFrom(parsedMessage);
-            }
-          }
-          return this;
-        }
-
-        private java.lang.Object id_ = "";
-        /**
-         * <code>string id = 1;</code>
-         */
-        public java.lang.String getId() {
-          java.lang.Object ref = id_;
-          if (!(ref instanceof java.lang.String)) {
-            com.google.protobuf.ByteString bs =
-                (com.google.protobuf.ByteString) ref;
-            java.lang.String s = bs.toStringUtf8();
-            id_ = s;
-            return s;
-          } else {
-            return (java.lang.String) ref;
-          }
-        }
-        /**
-         * <code>string id = 1;</code>
-         */
-        public com.google.protobuf.ByteString
-            getIdBytes() {
-          java.lang.Object ref = id_;
-          if (ref instanceof String) {
-            com.google.protobuf.ByteString b = 
-                com.google.protobuf.ByteString.copyFromUtf8(
-                    (java.lang.String) ref);
-            id_ = b;
-            return b;
-          } else {
-            return (com.google.protobuf.ByteString) ref;
-          }
-        }
-        /**
-         * <code>string id = 1;</code>
-         */
-        public Builder setId(
-            java.lang.String value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  
-          id_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>string id = 1;</code>
-         */
-        public Builder clearId() {
-          
-          id_ = getDefaultInstance().getId();
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>string id = 1;</code>
-         */
-        public Builder setIdBytes(
-            com.google.protobuf.ByteString value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-          
-          id_ = value;
-          onChanged();
-          return this;
-        }
-
-        private java.lang.Object address_ = "";
-        /**
-         * <code>string address = 2;</code>
-         */
-        public java.lang.String getAddress() {
-          java.lang.Object ref = address_;
-          if (!(ref instanceof java.lang.String)) {
-            com.google.protobuf.ByteString bs =
-                (com.google.protobuf.ByteString) ref;
-            java.lang.String s = bs.toStringUtf8();
-            address_ = s;
-            return s;
-          } else {
-            return (java.lang.String) ref;
-          }
-        }
-        /**
-         * <code>string address = 2;</code>
-         */
-        public com.google.protobuf.ByteString
-            getAddressBytes() {
-          java.lang.Object ref = address_;
-          if (ref instanceof String) {
-            com.google.protobuf.ByteString b = 
-                com.google.protobuf.ByteString.copyFromUtf8(
-                    (java.lang.String) ref);
-            address_ = b;
-            return b;
-          } else {
-            return (com.google.protobuf.ByteString) ref;
-          }
-        }
-        /**
-         * <code>string address = 2;</code>
-         */
-        public Builder setAddress(
-            java.lang.String value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  
-          address_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>string address = 2;</code>
-         */
-        public Builder clearAddress() {
-          
-          address_ = getDefaultInstance().getAddress();
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>string address = 2;</code>
-         */
-        public Builder setAddressBytes(
-            com.google.protobuf.ByteString value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-          
-          address_ = value;
-          onChanged();
-          return this;
-        }
-
-        private int port_ ;
-        /**
-         * <code>int32 port = 3;</code>
-         */
-        public int getPort() {
-          return port_;
-        }
-        /**
-         * <code>int32 port = 3;</code>
-         */
-        public Builder setPort(int value) {
-          
-          port_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>int32 port = 3;</code>
-         */
-        public Builder clearPort() {
-          
-          port_ = 0;
-          onChanged();
-          return this;
-        }
-        public final Builder setUnknownFields(
-            final com.google.protobuf.UnknownFieldSet unknownFields) {
-          return super.setUnknownFieldsProto3(unknownFields);
-        }
-
-        public final Builder mergeUnknownFields(
-            final com.google.protobuf.UnknownFieldSet unknownFields) {
-          return super.mergeUnknownFields(unknownFields);
-        }
-
-
-        // @@protoc_insertion_point(builder_scope:com.netHandler.UpdateNeighboursMessage.Node)
-      }
-
-      // @@protoc_insertion_point(class_scope:com.netHandler.UpdateNeighboursMessage.Node)
-      private static final com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node DEFAULT_INSTANCE;
-      static {
-        DEFAULT_INSTANCE = new com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node();
-      }
-
-      public static com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node getDefaultInstance() {
-        return DEFAULT_INSTANCE;
-      }
-
-      private static final com.google.protobuf.Parser<Node>
-          PARSER = new com.google.protobuf.AbstractParser<Node>() {
-        public Node parsePartialFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-            return new Node(input, extensionRegistry);
-        }
-      };
-
-      public static com.google.protobuf.Parser<Node> parser() {
-        return PARSER;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Parser<Node> getParserForType() {
-        return PARSER;
-      }
-
-      public com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node getDefaultInstanceForType() {
-        return DEFAULT_INSTANCE;
-      }
-
-    }
-
-    private int bitField0_;
-    public static final int NETWORK_FIELD_NUMBER = 1;
-    private java.util.List<com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node> network_;
-    /**
-     * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-     */
-    public java.util.List<com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node> getNetworkList() {
-      return network_;
-    }
-    /**
-     * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-     */
-    public java.util.List<? extends com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder> 
-        getNetworkOrBuilderList() {
-      return network_;
-    }
-    /**
-     * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-     */
-    public int getNetworkCount() {
-      return network_.size();
-    }
-    /**
-     * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-     */
-    public com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node getNetwork(int index) {
-      return network_.get(index);
-    }
-    /**
-     * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-     */
-    public com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder getNetworkOrBuilder(
-        int index) {
-      return network_.get(index);
-    }
-
-    public static final int PREVIOUS_FIELD_NUMBER = 2;
-    private com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node previous_;
-    /**
-     * <code>.com.netHandler.UpdateNeighboursMessage.Node previous = 2;</code>
+     * <code>.com.netHandler.Node previous = 1;</code>
      */
     public boolean hasPrevious() {
       return previous_ != null;
     }
     /**
-     * <code>.com.netHandler.UpdateNeighboursMessage.Node previous = 2;</code>
+     * <code>.com.netHandler.Node previous = 1;</code>
      */
-    public com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node getPrevious() {
-      return previous_ == null ? com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.getDefaultInstance() : previous_;
+    public com.netHandler.RingNetworkHandler.Node getPrevious() {
+      return previous_ == null ? com.netHandler.RingNetworkHandler.Node.getDefaultInstance() : previous_;
     }
     /**
-     * <code>.com.netHandler.UpdateNeighboursMessage.Node previous = 2;</code>
+     * <code>.com.netHandler.Node previous = 1;</code>
      */
-    public com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder getPreviousOrBuilder() {
+    public com.netHandler.RingNetworkHandler.NodeOrBuilder getPreviousOrBuilder() {
       return getPrevious();
     }
 
-    public static final int FROM_FIELD_NUMBER = 3;
-    private com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node from_;
+    public static final int FROM_FIELD_NUMBER = 2;
+    private com.netHandler.RingNetworkHandler.Node from_;
     /**
-     * <code>.com.netHandler.UpdateNeighboursMessage.Node from = 3;</code>
+     * <code>.com.netHandler.Node from = 2;</code>
      */
     public boolean hasFrom() {
       return from_ != null;
     }
     /**
-     * <code>.com.netHandler.UpdateNeighboursMessage.Node from = 3;</code>
+     * <code>.com.netHandler.Node from = 2;</code>
      */
-    public com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node getFrom() {
-      return from_ == null ? com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.getDefaultInstance() : from_;
+    public com.netHandler.RingNetworkHandler.Node getFrom() {
+      return from_ == null ? com.netHandler.RingNetworkHandler.Node.getDefaultInstance() : from_;
     }
     /**
-     * <code>.com.netHandler.UpdateNeighboursMessage.Node from = 3;</code>
+     * <code>.com.netHandler.Node from = 2;</code>
      */
-    public com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder getFromOrBuilder() {
+    public com.netHandler.RingNetworkHandler.NodeOrBuilder getFromOrBuilder() {
       return getFrom();
     }
 
-    public static final int NEXT_FIELD_NUMBER = 4;
-    private com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node next_;
+    public static final int NEXT_FIELD_NUMBER = 3;
+    private com.netHandler.RingNetworkHandler.Node next_;
     /**
-     * <code>.com.netHandler.UpdateNeighboursMessage.Node next = 4;</code>
+     * <code>.com.netHandler.Node next = 3;</code>
      */
     public boolean hasNext() {
       return next_ != null;
     }
     /**
-     * <code>.com.netHandler.UpdateNeighboursMessage.Node next = 4;</code>
+     * <code>.com.netHandler.Node next = 3;</code>
      */
-    public com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node getNext() {
-      return next_ == null ? com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.getDefaultInstance() : next_;
+    public com.netHandler.RingNetworkHandler.Node getNext() {
+      return next_ == null ? com.netHandler.RingNetworkHandler.Node.getDefaultInstance() : next_;
     }
     /**
-     * <code>.com.netHandler.UpdateNeighboursMessage.Node next = 4;</code>
+     * <code>.com.netHandler.Node next = 3;</code>
      */
-    public com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder getNextOrBuilder() {
+    public com.netHandler.RingNetworkHandler.NodeOrBuilder getNextOrBuilder() {
       return getNext();
     }
 
-    public static final int EXITING_FIELD_NUMBER = 5;
+    public static final int EXITING_FIELD_NUMBER = 4;
     private boolean exiting_;
     /**
-     * <code>bool exiting = 5;</code>
+     * <code>bool exiting = 4;</code>
      */
     public boolean getExiting() {
       return exiting_;
     }
 
-    public static final int ENTERING_FIELD_NUMBER = 6;
+    public static final int ENTERING_FIELD_NUMBER = 5;
     private boolean entering_;
     /**
-     * <code>bool entering = 6;</code>
+     * <code>bool entering = 5;</code>
      */
     public boolean getEntering() {
       return entering_;
@@ -1073,23 +1000,20 @@ public final class RingNetworkHandler {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      for (int i = 0; i < network_.size(); i++) {
-        output.writeMessage(1, network_.get(i));
-      }
       if (previous_ != null) {
-        output.writeMessage(2, getPrevious());
+        output.writeMessage(1, getPrevious());
       }
       if (from_ != null) {
-        output.writeMessage(3, getFrom());
+        output.writeMessage(2, getFrom());
       }
       if (next_ != null) {
-        output.writeMessage(4, getNext());
+        output.writeMessage(3, getNext());
       }
       if (exiting_ != false) {
-        output.writeBool(5, exiting_);
+        output.writeBool(4, exiting_);
       }
       if (entering_ != false) {
-        output.writeBool(6, entering_);
+        output.writeBool(5, entering_);
       }
       unknownFields.writeTo(output);
     }
@@ -1099,29 +1023,25 @@ public final class RingNetworkHandler {
       if (size != -1) return size;
 
       size = 0;
-      for (int i = 0; i < network_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, network_.get(i));
-      }
       if (previous_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getPrevious());
+          .computeMessageSize(1, getPrevious());
       }
       if (from_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, getFrom());
+          .computeMessageSize(2, getFrom());
       }
       if (next_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, getNext());
+          .computeMessageSize(3, getNext());
       }
       if (exiting_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(5, exiting_);
+          .computeBoolSize(4, exiting_);
       }
       if (entering_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(6, entering_);
+          .computeBoolSize(5, entering_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1139,8 +1059,6 @@ public final class RingNetworkHandler {
       com.netHandler.RingNetworkHandler.UpdateNeighboursMessage other = (com.netHandler.RingNetworkHandler.UpdateNeighboursMessage) obj;
 
       boolean result = true;
-      result = result && getNetworkList()
-          .equals(other.getNetworkList());
       result = result && (hasPrevious() == other.hasPrevious());
       if (hasPrevious()) {
         result = result && getPrevious()
@@ -1171,10 +1089,6 @@ public final class RingNetworkHandler {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (getNetworkCount() > 0) {
-        hash = (37 * hash) + NETWORK_FIELD_NUMBER;
-        hash = (53 * hash) + getNetworkList().hashCode();
-      }
       if (hasPrevious()) {
         hash = (37 * hash) + PREVIOUS_FIELD_NUMBER;
         hash = (53 * hash) + getPrevious().hashCode();
@@ -1318,17 +1232,10 @@ public final class RingNetworkHandler {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
-          getNetworkFieldBuilder();
         }
       }
       public Builder clear() {
         super.clear();
-        if (networkBuilder_ == null) {
-          network_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-        } else {
-          networkBuilder_.clear();
-        }
         if (previousBuilder_ == null) {
           previous_ = null;
         } else {
@@ -1373,17 +1280,6 @@ public final class RingNetworkHandler {
 
       public com.netHandler.RingNetworkHandler.UpdateNeighboursMessage buildPartial() {
         com.netHandler.RingNetworkHandler.UpdateNeighboursMessage result = new com.netHandler.RingNetworkHandler.UpdateNeighboursMessage(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (networkBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
-            network_ = java.util.Collections.unmodifiableList(network_);
-            bitField0_ = (bitField0_ & ~0x00000001);
-          }
-          result.network_ = network_;
-        } else {
-          result.network_ = networkBuilder_.build();
-        }
         if (previousBuilder_ == null) {
           result.previous_ = previous_;
         } else {
@@ -1401,7 +1297,6 @@ public final class RingNetworkHandler {
         }
         result.exiting_ = exiting_;
         result.entering_ = entering_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -1443,32 +1338,6 @@ public final class RingNetworkHandler {
 
       public Builder mergeFrom(com.netHandler.RingNetworkHandler.UpdateNeighboursMessage other) {
         if (other == com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.getDefaultInstance()) return this;
-        if (networkBuilder_ == null) {
-          if (!other.network_.isEmpty()) {
-            if (network_.isEmpty()) {
-              network_ = other.network_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-            } else {
-              ensureNetworkIsMutable();
-              network_.addAll(other.network_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.network_.isEmpty()) {
-            if (networkBuilder_.isEmpty()) {
-              networkBuilder_.dispose();
-              networkBuilder_ = null;
-              network_ = other.network_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-              networkBuilder_ = 
-                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getNetworkFieldBuilder() : null;
-            } else {
-              networkBuilder_.addAllMessages(other.network_);
-            }
-          }
-        }
         if (other.hasPrevious()) {
           mergePrevious(other.getPrevious());
         }
@@ -1510,271 +1379,30 @@ public final class RingNetworkHandler {
         }
         return this;
       }
-      private int bitField0_;
 
-      private java.util.List<com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node> network_ =
-        java.util.Collections.emptyList();
-      private void ensureNetworkIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-          network_ = new java.util.ArrayList<com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node>(network_);
-          bitField0_ |= 0x00000001;
-         }
-      }
-
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder> networkBuilder_;
-
-      /**
-       * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-       */
-      public java.util.List<com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node> getNetworkList() {
-        if (networkBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(network_);
-        } else {
-          return networkBuilder_.getMessageList();
-        }
-      }
-      /**
-       * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-       */
-      public int getNetworkCount() {
-        if (networkBuilder_ == null) {
-          return network_.size();
-        } else {
-          return networkBuilder_.getCount();
-        }
-      }
-      /**
-       * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-       */
-      public com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node getNetwork(int index) {
-        if (networkBuilder_ == null) {
-          return network_.get(index);
-        } else {
-          return networkBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-       */
-      public Builder setNetwork(
-          int index, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node value) {
-        if (networkBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureNetworkIsMutable();
-          network_.set(index, value);
-          onChanged();
-        } else {
-          networkBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-       */
-      public Builder setNetwork(
-          int index, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder builderForValue) {
-        if (networkBuilder_ == null) {
-          ensureNetworkIsMutable();
-          network_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          networkBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-       */
-      public Builder addNetwork(com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node value) {
-        if (networkBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureNetworkIsMutable();
-          network_.add(value);
-          onChanged();
-        } else {
-          networkBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-       */
-      public Builder addNetwork(
-          int index, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node value) {
-        if (networkBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureNetworkIsMutable();
-          network_.add(index, value);
-          onChanged();
-        } else {
-          networkBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-       */
-      public Builder addNetwork(
-          com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder builderForValue) {
-        if (networkBuilder_ == null) {
-          ensureNetworkIsMutable();
-          network_.add(builderForValue.build());
-          onChanged();
-        } else {
-          networkBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-       */
-      public Builder addNetwork(
-          int index, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder builderForValue) {
-        if (networkBuilder_ == null) {
-          ensureNetworkIsMutable();
-          network_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          networkBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-       */
-      public Builder addAllNetwork(
-          java.lang.Iterable<? extends com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node> values) {
-        if (networkBuilder_ == null) {
-          ensureNetworkIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, network_);
-          onChanged();
-        } else {
-          networkBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-       */
-      public Builder clearNetwork() {
-        if (networkBuilder_ == null) {
-          network_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-          onChanged();
-        } else {
-          networkBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-       */
-      public Builder removeNetwork(int index) {
-        if (networkBuilder_ == null) {
-          ensureNetworkIsMutable();
-          network_.remove(index);
-          onChanged();
-        } else {
-          networkBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-       */
-      public com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder getNetworkBuilder(
-          int index) {
-        return getNetworkFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-       */
-      public com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder getNetworkOrBuilder(
-          int index) {
-        if (networkBuilder_ == null) {
-          return network_.get(index);  } else {
-          return networkBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-       */
-      public java.util.List<? extends com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder> 
-           getNetworkOrBuilderList() {
-        if (networkBuilder_ != null) {
-          return networkBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(network_);
-        }
-      }
-      /**
-       * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-       */
-      public com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder addNetworkBuilder() {
-        return getNetworkFieldBuilder().addBuilder(
-            com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-       */
-      public com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder addNetworkBuilder(
-          int index) {
-        return getNetworkFieldBuilder().addBuilder(
-            index, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .com.netHandler.UpdateNeighboursMessage.Node network = 1;</code>
-       */
-      public java.util.List<com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder> 
-           getNetworkBuilderList() {
-        return getNetworkFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder> 
-          getNetworkFieldBuilder() {
-        if (networkBuilder_ == null) {
-          networkBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder>(
-                  network_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
-                  getParentForChildren(),
-                  isClean());
-          network_ = null;
-        }
-        return networkBuilder_;
-      }
-
-      private com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node previous_ = null;
+      private com.netHandler.RingNetworkHandler.Node previous_ = null;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder> previousBuilder_;
+          com.netHandler.RingNetworkHandler.Node, com.netHandler.RingNetworkHandler.Node.Builder, com.netHandler.RingNetworkHandler.NodeOrBuilder> previousBuilder_;
       /**
-       * <code>.com.netHandler.UpdateNeighboursMessage.Node previous = 2;</code>
+       * <code>.com.netHandler.Node previous = 1;</code>
        */
       public boolean hasPrevious() {
         return previousBuilder_ != null || previous_ != null;
       }
       /**
-       * <code>.com.netHandler.UpdateNeighboursMessage.Node previous = 2;</code>
+       * <code>.com.netHandler.Node previous = 1;</code>
        */
-      public com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node getPrevious() {
+      public com.netHandler.RingNetworkHandler.Node getPrevious() {
         if (previousBuilder_ == null) {
-          return previous_ == null ? com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.getDefaultInstance() : previous_;
+          return previous_ == null ? com.netHandler.RingNetworkHandler.Node.getDefaultInstance() : previous_;
         } else {
           return previousBuilder_.getMessage();
         }
       }
       /**
-       * <code>.com.netHandler.UpdateNeighboursMessage.Node previous = 2;</code>
+       * <code>.com.netHandler.Node previous = 1;</code>
        */
-      public Builder setPrevious(com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node value) {
+      public Builder setPrevious(com.netHandler.RingNetworkHandler.Node value) {
         if (previousBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1788,10 +1416,10 @@ public final class RingNetworkHandler {
         return this;
       }
       /**
-       * <code>.com.netHandler.UpdateNeighboursMessage.Node previous = 2;</code>
+       * <code>.com.netHandler.Node previous = 1;</code>
        */
       public Builder setPrevious(
-          com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder builderForValue) {
+          com.netHandler.RingNetworkHandler.Node.Builder builderForValue) {
         if (previousBuilder_ == null) {
           previous_ = builderForValue.build();
           onChanged();
@@ -1802,13 +1430,13 @@ public final class RingNetworkHandler {
         return this;
       }
       /**
-       * <code>.com.netHandler.UpdateNeighboursMessage.Node previous = 2;</code>
+       * <code>.com.netHandler.Node previous = 1;</code>
        */
-      public Builder mergePrevious(com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node value) {
+      public Builder mergePrevious(com.netHandler.RingNetworkHandler.Node value) {
         if (previousBuilder_ == null) {
           if (previous_ != null) {
             previous_ =
-              com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.newBuilder(previous_).mergeFrom(value).buildPartial();
+              com.netHandler.RingNetworkHandler.Node.newBuilder(previous_).mergeFrom(value).buildPartial();
           } else {
             previous_ = value;
           }
@@ -1820,7 +1448,7 @@ public final class RingNetworkHandler {
         return this;
       }
       /**
-       * <code>.com.netHandler.UpdateNeighboursMessage.Node previous = 2;</code>
+       * <code>.com.netHandler.Node previous = 1;</code>
        */
       public Builder clearPrevious() {
         if (previousBuilder_ == null) {
@@ -1834,33 +1462,33 @@ public final class RingNetworkHandler {
         return this;
       }
       /**
-       * <code>.com.netHandler.UpdateNeighboursMessage.Node previous = 2;</code>
+       * <code>.com.netHandler.Node previous = 1;</code>
        */
-      public com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder getPreviousBuilder() {
+      public com.netHandler.RingNetworkHandler.Node.Builder getPreviousBuilder() {
         
         onChanged();
         return getPreviousFieldBuilder().getBuilder();
       }
       /**
-       * <code>.com.netHandler.UpdateNeighboursMessage.Node previous = 2;</code>
+       * <code>.com.netHandler.Node previous = 1;</code>
        */
-      public com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder getPreviousOrBuilder() {
+      public com.netHandler.RingNetworkHandler.NodeOrBuilder getPreviousOrBuilder() {
         if (previousBuilder_ != null) {
           return previousBuilder_.getMessageOrBuilder();
         } else {
           return previous_ == null ?
-              com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.getDefaultInstance() : previous_;
+              com.netHandler.RingNetworkHandler.Node.getDefaultInstance() : previous_;
         }
       }
       /**
-       * <code>.com.netHandler.UpdateNeighboursMessage.Node previous = 2;</code>
+       * <code>.com.netHandler.Node previous = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder> 
+          com.netHandler.RingNetworkHandler.Node, com.netHandler.RingNetworkHandler.Node.Builder, com.netHandler.RingNetworkHandler.NodeOrBuilder> 
           getPreviousFieldBuilder() {
         if (previousBuilder_ == null) {
           previousBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder>(
+              com.netHandler.RingNetworkHandler.Node, com.netHandler.RingNetworkHandler.Node.Builder, com.netHandler.RingNetworkHandler.NodeOrBuilder>(
                   getPrevious(),
                   getParentForChildren(),
                   isClean());
@@ -1869,29 +1497,29 @@ public final class RingNetworkHandler {
         return previousBuilder_;
       }
 
-      private com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node from_ = null;
+      private com.netHandler.RingNetworkHandler.Node from_ = null;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder> fromBuilder_;
+          com.netHandler.RingNetworkHandler.Node, com.netHandler.RingNetworkHandler.Node.Builder, com.netHandler.RingNetworkHandler.NodeOrBuilder> fromBuilder_;
       /**
-       * <code>.com.netHandler.UpdateNeighboursMessage.Node from = 3;</code>
+       * <code>.com.netHandler.Node from = 2;</code>
        */
       public boolean hasFrom() {
         return fromBuilder_ != null || from_ != null;
       }
       /**
-       * <code>.com.netHandler.UpdateNeighboursMessage.Node from = 3;</code>
+       * <code>.com.netHandler.Node from = 2;</code>
        */
-      public com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node getFrom() {
+      public com.netHandler.RingNetworkHandler.Node getFrom() {
         if (fromBuilder_ == null) {
-          return from_ == null ? com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.getDefaultInstance() : from_;
+          return from_ == null ? com.netHandler.RingNetworkHandler.Node.getDefaultInstance() : from_;
         } else {
           return fromBuilder_.getMessage();
         }
       }
       /**
-       * <code>.com.netHandler.UpdateNeighboursMessage.Node from = 3;</code>
+       * <code>.com.netHandler.Node from = 2;</code>
        */
-      public Builder setFrom(com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node value) {
+      public Builder setFrom(com.netHandler.RingNetworkHandler.Node value) {
         if (fromBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1905,10 +1533,10 @@ public final class RingNetworkHandler {
         return this;
       }
       /**
-       * <code>.com.netHandler.UpdateNeighboursMessage.Node from = 3;</code>
+       * <code>.com.netHandler.Node from = 2;</code>
        */
       public Builder setFrom(
-          com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder builderForValue) {
+          com.netHandler.RingNetworkHandler.Node.Builder builderForValue) {
         if (fromBuilder_ == null) {
           from_ = builderForValue.build();
           onChanged();
@@ -1919,13 +1547,13 @@ public final class RingNetworkHandler {
         return this;
       }
       /**
-       * <code>.com.netHandler.UpdateNeighboursMessage.Node from = 3;</code>
+       * <code>.com.netHandler.Node from = 2;</code>
        */
-      public Builder mergeFrom(com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node value) {
+      public Builder mergeFrom(com.netHandler.RingNetworkHandler.Node value) {
         if (fromBuilder_ == null) {
           if (from_ != null) {
             from_ =
-              com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.newBuilder(from_).mergeFrom(value).buildPartial();
+              com.netHandler.RingNetworkHandler.Node.newBuilder(from_).mergeFrom(value).buildPartial();
           } else {
             from_ = value;
           }
@@ -1937,7 +1565,7 @@ public final class RingNetworkHandler {
         return this;
       }
       /**
-       * <code>.com.netHandler.UpdateNeighboursMessage.Node from = 3;</code>
+       * <code>.com.netHandler.Node from = 2;</code>
        */
       public Builder clearFrom() {
         if (fromBuilder_ == null) {
@@ -1951,33 +1579,33 @@ public final class RingNetworkHandler {
         return this;
       }
       /**
-       * <code>.com.netHandler.UpdateNeighboursMessage.Node from = 3;</code>
+       * <code>.com.netHandler.Node from = 2;</code>
        */
-      public com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder getFromBuilder() {
+      public com.netHandler.RingNetworkHandler.Node.Builder getFromBuilder() {
         
         onChanged();
         return getFromFieldBuilder().getBuilder();
       }
       /**
-       * <code>.com.netHandler.UpdateNeighboursMessage.Node from = 3;</code>
+       * <code>.com.netHandler.Node from = 2;</code>
        */
-      public com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder getFromOrBuilder() {
+      public com.netHandler.RingNetworkHandler.NodeOrBuilder getFromOrBuilder() {
         if (fromBuilder_ != null) {
           return fromBuilder_.getMessageOrBuilder();
         } else {
           return from_ == null ?
-              com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.getDefaultInstance() : from_;
+              com.netHandler.RingNetworkHandler.Node.getDefaultInstance() : from_;
         }
       }
       /**
-       * <code>.com.netHandler.UpdateNeighboursMessage.Node from = 3;</code>
+       * <code>.com.netHandler.Node from = 2;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder> 
+          com.netHandler.RingNetworkHandler.Node, com.netHandler.RingNetworkHandler.Node.Builder, com.netHandler.RingNetworkHandler.NodeOrBuilder> 
           getFromFieldBuilder() {
         if (fromBuilder_ == null) {
           fromBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder>(
+              com.netHandler.RingNetworkHandler.Node, com.netHandler.RingNetworkHandler.Node.Builder, com.netHandler.RingNetworkHandler.NodeOrBuilder>(
                   getFrom(),
                   getParentForChildren(),
                   isClean());
@@ -1986,29 +1614,29 @@ public final class RingNetworkHandler {
         return fromBuilder_;
       }
 
-      private com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node next_ = null;
+      private com.netHandler.RingNetworkHandler.Node next_ = null;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder> nextBuilder_;
+          com.netHandler.RingNetworkHandler.Node, com.netHandler.RingNetworkHandler.Node.Builder, com.netHandler.RingNetworkHandler.NodeOrBuilder> nextBuilder_;
       /**
-       * <code>.com.netHandler.UpdateNeighboursMessage.Node next = 4;</code>
+       * <code>.com.netHandler.Node next = 3;</code>
        */
       public boolean hasNext() {
         return nextBuilder_ != null || next_ != null;
       }
       /**
-       * <code>.com.netHandler.UpdateNeighboursMessage.Node next = 4;</code>
+       * <code>.com.netHandler.Node next = 3;</code>
        */
-      public com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node getNext() {
+      public com.netHandler.RingNetworkHandler.Node getNext() {
         if (nextBuilder_ == null) {
-          return next_ == null ? com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.getDefaultInstance() : next_;
+          return next_ == null ? com.netHandler.RingNetworkHandler.Node.getDefaultInstance() : next_;
         } else {
           return nextBuilder_.getMessage();
         }
       }
       /**
-       * <code>.com.netHandler.UpdateNeighboursMessage.Node next = 4;</code>
+       * <code>.com.netHandler.Node next = 3;</code>
        */
-      public Builder setNext(com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node value) {
+      public Builder setNext(com.netHandler.RingNetworkHandler.Node value) {
         if (nextBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2022,10 +1650,10 @@ public final class RingNetworkHandler {
         return this;
       }
       /**
-       * <code>.com.netHandler.UpdateNeighboursMessage.Node next = 4;</code>
+       * <code>.com.netHandler.Node next = 3;</code>
        */
       public Builder setNext(
-          com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder builderForValue) {
+          com.netHandler.RingNetworkHandler.Node.Builder builderForValue) {
         if (nextBuilder_ == null) {
           next_ = builderForValue.build();
           onChanged();
@@ -2036,13 +1664,13 @@ public final class RingNetworkHandler {
         return this;
       }
       /**
-       * <code>.com.netHandler.UpdateNeighboursMessage.Node next = 4;</code>
+       * <code>.com.netHandler.Node next = 3;</code>
        */
-      public Builder mergeNext(com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node value) {
+      public Builder mergeNext(com.netHandler.RingNetworkHandler.Node value) {
         if (nextBuilder_ == null) {
           if (next_ != null) {
             next_ =
-              com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.newBuilder(next_).mergeFrom(value).buildPartial();
+              com.netHandler.RingNetworkHandler.Node.newBuilder(next_).mergeFrom(value).buildPartial();
           } else {
             next_ = value;
           }
@@ -2054,7 +1682,7 @@ public final class RingNetworkHandler {
         return this;
       }
       /**
-       * <code>.com.netHandler.UpdateNeighboursMessage.Node next = 4;</code>
+       * <code>.com.netHandler.Node next = 3;</code>
        */
       public Builder clearNext() {
         if (nextBuilder_ == null) {
@@ -2068,33 +1696,33 @@ public final class RingNetworkHandler {
         return this;
       }
       /**
-       * <code>.com.netHandler.UpdateNeighboursMessage.Node next = 4;</code>
+       * <code>.com.netHandler.Node next = 3;</code>
        */
-      public com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder getNextBuilder() {
+      public com.netHandler.RingNetworkHandler.Node.Builder getNextBuilder() {
         
         onChanged();
         return getNextFieldBuilder().getBuilder();
       }
       /**
-       * <code>.com.netHandler.UpdateNeighboursMessage.Node next = 4;</code>
+       * <code>.com.netHandler.Node next = 3;</code>
        */
-      public com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder getNextOrBuilder() {
+      public com.netHandler.RingNetworkHandler.NodeOrBuilder getNextOrBuilder() {
         if (nextBuilder_ != null) {
           return nextBuilder_.getMessageOrBuilder();
         } else {
           return next_ == null ?
-              com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.getDefaultInstance() : next_;
+              com.netHandler.RingNetworkHandler.Node.getDefaultInstance() : next_;
         }
       }
       /**
-       * <code>.com.netHandler.UpdateNeighboursMessage.Node next = 4;</code>
+       * <code>.com.netHandler.Node next = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder> 
+          com.netHandler.RingNetworkHandler.Node, com.netHandler.RingNetworkHandler.Node.Builder, com.netHandler.RingNetworkHandler.NodeOrBuilder> 
           getNextFieldBuilder() {
         if (nextBuilder_ == null) {
           nextBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.Node.Builder, com.netHandler.RingNetworkHandler.UpdateNeighboursMessage.NodeOrBuilder>(
+              com.netHandler.RingNetworkHandler.Node, com.netHandler.RingNetworkHandler.Node.Builder, com.netHandler.RingNetworkHandler.NodeOrBuilder>(
                   getNext(),
                   getParentForChildren(),
                   isClean());
@@ -2105,13 +1733,13 @@ public final class RingNetworkHandler {
 
       private boolean exiting_ ;
       /**
-       * <code>bool exiting = 5;</code>
+       * <code>bool exiting = 4;</code>
        */
       public boolean getExiting() {
         return exiting_;
       }
       /**
-       * <code>bool exiting = 5;</code>
+       * <code>bool exiting = 4;</code>
        */
       public Builder setExiting(boolean value) {
         
@@ -2120,7 +1748,7 @@ public final class RingNetworkHandler {
         return this;
       }
       /**
-       * <code>bool exiting = 5;</code>
+       * <code>bool exiting = 4;</code>
        */
       public Builder clearExiting() {
         
@@ -2131,13 +1759,13 @@ public final class RingNetworkHandler {
 
       private boolean entering_ ;
       /**
-       * <code>bool entering = 6;</code>
+       * <code>bool entering = 5;</code>
        */
       public boolean getEntering() {
         return entering_;
       }
       /**
-       * <code>bool entering = 6;</code>
+       * <code>bool entering = 5;</code>
        */
       public Builder setEntering(boolean value) {
         
@@ -2146,7 +1774,7 @@ public final class RingNetworkHandler {
         return this;
       }
       /**
-       * <code>bool entering = 6;</code>
+       * <code>bool entering = 5;</code>
        */
       public Builder clearEntering() {
         
@@ -2203,16 +1831,858 @@ public final class RingNetworkHandler {
 
   }
 
+  public interface UpdateNeighboursResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.netHandler.UpdateNeighboursResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>bool ok = 1;</code>
+     */
+    boolean getOk();
+
+    /**
+     * <code>.com.netHandler.Node previous = 2;</code>
+     */
+    boolean hasPrevious();
+    /**
+     * <code>.com.netHandler.Node previous = 2;</code>
+     */
+    com.netHandler.RingNetworkHandler.Node getPrevious();
+    /**
+     * <code>.com.netHandler.Node previous = 2;</code>
+     */
+    com.netHandler.RingNetworkHandler.NodeOrBuilder getPreviousOrBuilder();
+
+    /**
+     * <code>.com.netHandler.Node next = 3;</code>
+     */
+    boolean hasNext();
+    /**
+     * <code>.com.netHandler.Node next = 3;</code>
+     */
+    com.netHandler.RingNetworkHandler.Node getNext();
+    /**
+     * <code>.com.netHandler.Node next = 3;</code>
+     */
+    com.netHandler.RingNetworkHandler.NodeOrBuilder getNextOrBuilder();
+  }
+  /**
+   * Protobuf type {@code com.netHandler.UpdateNeighboursResponse}
+   */
+  public  static final class UpdateNeighboursResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.netHandler.UpdateNeighboursResponse)
+      UpdateNeighboursResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use UpdateNeighboursResponse.newBuilder() to construct.
+    private UpdateNeighboursResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private UpdateNeighboursResponse() {
+      ok_ = false;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private UpdateNeighboursResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+
+              ok_ = input.readBool();
+              break;
+            }
+            case 18: {
+              com.netHandler.RingNetworkHandler.Node.Builder subBuilder = null;
+              if (previous_ != null) {
+                subBuilder = previous_.toBuilder();
+              }
+              previous_ = input.readMessage(com.netHandler.RingNetworkHandler.Node.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(previous_);
+                previous_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 26: {
+              com.netHandler.RingNetworkHandler.Node.Builder subBuilder = null;
+              if (next_ != null) {
+                subBuilder = next_.toBuilder();
+              }
+              next_ = input.readMessage(com.netHandler.RingNetworkHandler.Node.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(next_);
+                next_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.netHandler.RingNetworkHandler.internal_static_com_netHandler_UpdateNeighboursResponse_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.netHandler.RingNetworkHandler.internal_static_com_netHandler_UpdateNeighboursResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.netHandler.RingNetworkHandler.UpdateNeighboursResponse.class, com.netHandler.RingNetworkHandler.UpdateNeighboursResponse.Builder.class);
+    }
+
+    public static final int OK_FIELD_NUMBER = 1;
+    private boolean ok_;
+    /**
+     * <code>bool ok = 1;</code>
+     */
+    public boolean getOk() {
+      return ok_;
+    }
+
+    public static final int PREVIOUS_FIELD_NUMBER = 2;
+    private com.netHandler.RingNetworkHandler.Node previous_;
+    /**
+     * <code>.com.netHandler.Node previous = 2;</code>
+     */
+    public boolean hasPrevious() {
+      return previous_ != null;
+    }
+    /**
+     * <code>.com.netHandler.Node previous = 2;</code>
+     */
+    public com.netHandler.RingNetworkHandler.Node getPrevious() {
+      return previous_ == null ? com.netHandler.RingNetworkHandler.Node.getDefaultInstance() : previous_;
+    }
+    /**
+     * <code>.com.netHandler.Node previous = 2;</code>
+     */
+    public com.netHandler.RingNetworkHandler.NodeOrBuilder getPreviousOrBuilder() {
+      return getPrevious();
+    }
+
+    public static final int NEXT_FIELD_NUMBER = 3;
+    private com.netHandler.RingNetworkHandler.Node next_;
+    /**
+     * <code>.com.netHandler.Node next = 3;</code>
+     */
+    public boolean hasNext() {
+      return next_ != null;
+    }
+    /**
+     * <code>.com.netHandler.Node next = 3;</code>
+     */
+    public com.netHandler.RingNetworkHandler.Node getNext() {
+      return next_ == null ? com.netHandler.RingNetworkHandler.Node.getDefaultInstance() : next_;
+    }
+    /**
+     * <code>.com.netHandler.Node next = 3;</code>
+     */
+    public com.netHandler.RingNetworkHandler.NodeOrBuilder getNextOrBuilder() {
+      return getNext();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (ok_ != false) {
+        output.writeBool(1, ok_);
+      }
+      if (previous_ != null) {
+        output.writeMessage(2, getPrevious());
+      }
+      if (next_ != null) {
+        output.writeMessage(3, getNext());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (ok_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(1, ok_);
+      }
+      if (previous_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getPrevious());
+      }
+      if (next_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getNext());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.netHandler.RingNetworkHandler.UpdateNeighboursResponse)) {
+        return super.equals(obj);
+      }
+      com.netHandler.RingNetworkHandler.UpdateNeighboursResponse other = (com.netHandler.RingNetworkHandler.UpdateNeighboursResponse) obj;
+
+      boolean result = true;
+      result = result && (getOk()
+          == other.getOk());
+      result = result && (hasPrevious() == other.hasPrevious());
+      if (hasPrevious()) {
+        result = result && getPrevious()
+            .equals(other.getPrevious());
+      }
+      result = result && (hasNext() == other.hasNext());
+      if (hasNext()) {
+        result = result && getNext()
+            .equals(other.getNext());
+      }
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + OK_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getOk());
+      if (hasPrevious()) {
+        hash = (37 * hash) + PREVIOUS_FIELD_NUMBER;
+        hash = (53 * hash) + getPrevious().hashCode();
+      }
+      if (hasNext()) {
+        hash = (37 * hash) + NEXT_FIELD_NUMBER;
+        hash = (53 * hash) + getNext().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.netHandler.RingNetworkHandler.UpdateNeighboursResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.netHandler.RingNetworkHandler.UpdateNeighboursResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.netHandler.RingNetworkHandler.UpdateNeighboursResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.netHandler.RingNetworkHandler.UpdateNeighboursResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.netHandler.RingNetworkHandler.UpdateNeighboursResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.netHandler.RingNetworkHandler.UpdateNeighboursResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.netHandler.RingNetworkHandler.UpdateNeighboursResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.netHandler.RingNetworkHandler.UpdateNeighboursResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.netHandler.RingNetworkHandler.UpdateNeighboursResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.netHandler.RingNetworkHandler.UpdateNeighboursResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.netHandler.RingNetworkHandler.UpdateNeighboursResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.netHandler.RingNetworkHandler.UpdateNeighboursResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.netHandler.RingNetworkHandler.UpdateNeighboursResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.netHandler.UpdateNeighboursResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.netHandler.UpdateNeighboursResponse)
+        com.netHandler.RingNetworkHandler.UpdateNeighboursResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.netHandler.RingNetworkHandler.internal_static_com_netHandler_UpdateNeighboursResponse_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.netHandler.RingNetworkHandler.internal_static_com_netHandler_UpdateNeighboursResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.netHandler.RingNetworkHandler.UpdateNeighboursResponse.class, com.netHandler.RingNetworkHandler.UpdateNeighboursResponse.Builder.class);
+      }
+
+      // Construct using com.netHandler.RingNetworkHandler.UpdateNeighboursResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        ok_ = false;
+
+        if (previousBuilder_ == null) {
+          previous_ = null;
+        } else {
+          previous_ = null;
+          previousBuilder_ = null;
+        }
+        if (nextBuilder_ == null) {
+          next_ = null;
+        } else {
+          next_ = null;
+          nextBuilder_ = null;
+        }
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.netHandler.RingNetworkHandler.internal_static_com_netHandler_UpdateNeighboursResponse_descriptor;
+      }
+
+      public com.netHandler.RingNetworkHandler.UpdateNeighboursResponse getDefaultInstanceForType() {
+        return com.netHandler.RingNetworkHandler.UpdateNeighboursResponse.getDefaultInstance();
+      }
+
+      public com.netHandler.RingNetworkHandler.UpdateNeighboursResponse build() {
+        com.netHandler.RingNetworkHandler.UpdateNeighboursResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.netHandler.RingNetworkHandler.UpdateNeighboursResponse buildPartial() {
+        com.netHandler.RingNetworkHandler.UpdateNeighboursResponse result = new com.netHandler.RingNetworkHandler.UpdateNeighboursResponse(this);
+        result.ok_ = ok_;
+        if (previousBuilder_ == null) {
+          result.previous_ = previous_;
+        } else {
+          result.previous_ = previousBuilder_.build();
+        }
+        if (nextBuilder_ == null) {
+          result.next_ = next_;
+        } else {
+          result.next_ = nextBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.netHandler.RingNetworkHandler.UpdateNeighboursResponse) {
+          return mergeFrom((com.netHandler.RingNetworkHandler.UpdateNeighboursResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.netHandler.RingNetworkHandler.UpdateNeighboursResponse other) {
+        if (other == com.netHandler.RingNetworkHandler.UpdateNeighboursResponse.getDefaultInstance()) return this;
+        if (other.getOk() != false) {
+          setOk(other.getOk());
+        }
+        if (other.hasPrevious()) {
+          mergePrevious(other.getPrevious());
+        }
+        if (other.hasNext()) {
+          mergeNext(other.getNext());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.netHandler.RingNetworkHandler.UpdateNeighboursResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.netHandler.RingNetworkHandler.UpdateNeighboursResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private boolean ok_ ;
+      /**
+       * <code>bool ok = 1;</code>
+       */
+      public boolean getOk() {
+        return ok_;
+      }
+      /**
+       * <code>bool ok = 1;</code>
+       */
+      public Builder setOk(boolean value) {
+        
+        ok_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool ok = 1;</code>
+       */
+      public Builder clearOk() {
+        
+        ok_ = false;
+        onChanged();
+        return this;
+      }
+
+      private com.netHandler.RingNetworkHandler.Node previous_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.netHandler.RingNetworkHandler.Node, com.netHandler.RingNetworkHandler.Node.Builder, com.netHandler.RingNetworkHandler.NodeOrBuilder> previousBuilder_;
+      /**
+       * <code>.com.netHandler.Node previous = 2;</code>
+       */
+      public boolean hasPrevious() {
+        return previousBuilder_ != null || previous_ != null;
+      }
+      /**
+       * <code>.com.netHandler.Node previous = 2;</code>
+       */
+      public com.netHandler.RingNetworkHandler.Node getPrevious() {
+        if (previousBuilder_ == null) {
+          return previous_ == null ? com.netHandler.RingNetworkHandler.Node.getDefaultInstance() : previous_;
+        } else {
+          return previousBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.com.netHandler.Node previous = 2;</code>
+       */
+      public Builder setPrevious(com.netHandler.RingNetworkHandler.Node value) {
+        if (previousBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          previous_ = value;
+          onChanged();
+        } else {
+          previousBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.com.netHandler.Node previous = 2;</code>
+       */
+      public Builder setPrevious(
+          com.netHandler.RingNetworkHandler.Node.Builder builderForValue) {
+        if (previousBuilder_ == null) {
+          previous_ = builderForValue.build();
+          onChanged();
+        } else {
+          previousBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.com.netHandler.Node previous = 2;</code>
+       */
+      public Builder mergePrevious(com.netHandler.RingNetworkHandler.Node value) {
+        if (previousBuilder_ == null) {
+          if (previous_ != null) {
+            previous_ =
+              com.netHandler.RingNetworkHandler.Node.newBuilder(previous_).mergeFrom(value).buildPartial();
+          } else {
+            previous_ = value;
+          }
+          onChanged();
+        } else {
+          previousBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.com.netHandler.Node previous = 2;</code>
+       */
+      public Builder clearPrevious() {
+        if (previousBuilder_ == null) {
+          previous_ = null;
+          onChanged();
+        } else {
+          previous_ = null;
+          previousBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.com.netHandler.Node previous = 2;</code>
+       */
+      public com.netHandler.RingNetworkHandler.Node.Builder getPreviousBuilder() {
+        
+        onChanged();
+        return getPreviousFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.com.netHandler.Node previous = 2;</code>
+       */
+      public com.netHandler.RingNetworkHandler.NodeOrBuilder getPreviousOrBuilder() {
+        if (previousBuilder_ != null) {
+          return previousBuilder_.getMessageOrBuilder();
+        } else {
+          return previous_ == null ?
+              com.netHandler.RingNetworkHandler.Node.getDefaultInstance() : previous_;
+        }
+      }
+      /**
+       * <code>.com.netHandler.Node previous = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.netHandler.RingNetworkHandler.Node, com.netHandler.RingNetworkHandler.Node.Builder, com.netHandler.RingNetworkHandler.NodeOrBuilder> 
+          getPreviousFieldBuilder() {
+        if (previousBuilder_ == null) {
+          previousBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.netHandler.RingNetworkHandler.Node, com.netHandler.RingNetworkHandler.Node.Builder, com.netHandler.RingNetworkHandler.NodeOrBuilder>(
+                  getPrevious(),
+                  getParentForChildren(),
+                  isClean());
+          previous_ = null;
+        }
+        return previousBuilder_;
+      }
+
+      private com.netHandler.RingNetworkHandler.Node next_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.netHandler.RingNetworkHandler.Node, com.netHandler.RingNetworkHandler.Node.Builder, com.netHandler.RingNetworkHandler.NodeOrBuilder> nextBuilder_;
+      /**
+       * <code>.com.netHandler.Node next = 3;</code>
+       */
+      public boolean hasNext() {
+        return nextBuilder_ != null || next_ != null;
+      }
+      /**
+       * <code>.com.netHandler.Node next = 3;</code>
+       */
+      public com.netHandler.RingNetworkHandler.Node getNext() {
+        if (nextBuilder_ == null) {
+          return next_ == null ? com.netHandler.RingNetworkHandler.Node.getDefaultInstance() : next_;
+        } else {
+          return nextBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.com.netHandler.Node next = 3;</code>
+       */
+      public Builder setNext(com.netHandler.RingNetworkHandler.Node value) {
+        if (nextBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          next_ = value;
+          onChanged();
+        } else {
+          nextBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.com.netHandler.Node next = 3;</code>
+       */
+      public Builder setNext(
+          com.netHandler.RingNetworkHandler.Node.Builder builderForValue) {
+        if (nextBuilder_ == null) {
+          next_ = builderForValue.build();
+          onChanged();
+        } else {
+          nextBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.com.netHandler.Node next = 3;</code>
+       */
+      public Builder mergeNext(com.netHandler.RingNetworkHandler.Node value) {
+        if (nextBuilder_ == null) {
+          if (next_ != null) {
+            next_ =
+              com.netHandler.RingNetworkHandler.Node.newBuilder(next_).mergeFrom(value).buildPartial();
+          } else {
+            next_ = value;
+          }
+          onChanged();
+        } else {
+          nextBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.com.netHandler.Node next = 3;</code>
+       */
+      public Builder clearNext() {
+        if (nextBuilder_ == null) {
+          next_ = null;
+          onChanged();
+        } else {
+          next_ = null;
+          nextBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.com.netHandler.Node next = 3;</code>
+       */
+      public com.netHandler.RingNetworkHandler.Node.Builder getNextBuilder() {
+        
+        onChanged();
+        return getNextFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.com.netHandler.Node next = 3;</code>
+       */
+      public com.netHandler.RingNetworkHandler.NodeOrBuilder getNextOrBuilder() {
+        if (nextBuilder_ != null) {
+          return nextBuilder_.getMessageOrBuilder();
+        } else {
+          return next_ == null ?
+              com.netHandler.RingNetworkHandler.Node.getDefaultInstance() : next_;
+        }
+      }
+      /**
+       * <code>.com.netHandler.Node next = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.netHandler.RingNetworkHandler.Node, com.netHandler.RingNetworkHandler.Node.Builder, com.netHandler.RingNetworkHandler.NodeOrBuilder> 
+          getNextFieldBuilder() {
+        if (nextBuilder_ == null) {
+          nextBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.netHandler.RingNetworkHandler.Node, com.netHandler.RingNetworkHandler.Node.Builder, com.netHandler.RingNetworkHandler.NodeOrBuilder>(
+                  getNext(),
+                  getParentForChildren(),
+                  isClean());
+          next_ = null;
+        }
+        return nextBuilder_;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.netHandler.UpdateNeighboursResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.netHandler.UpdateNeighboursResponse)
+    private static final com.netHandler.RingNetworkHandler.UpdateNeighboursResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.netHandler.RingNetworkHandler.UpdateNeighboursResponse();
+    }
+
+    public static com.netHandler.RingNetworkHandler.UpdateNeighboursResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<UpdateNeighboursResponse>
+        PARSER = new com.google.protobuf.AbstractParser<UpdateNeighboursResponse>() {
+      public UpdateNeighboursResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new UpdateNeighboursResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<UpdateNeighboursResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<UpdateNeighboursResponse> getParserForType() {
+      return PARSER;
+    }
+
+    public com.netHandler.RingNetworkHandler.UpdateNeighboursResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_netHandler_Node_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_netHandler_Node_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_netHandler_UpdateNeighboursMessage_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_netHandler_UpdateNeighboursMessage_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_netHandler_UpdateNeighboursMessage_Node_descriptor;
+    internal_static_com_netHandler_UpdateNeighboursResponse_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_com_netHandler_UpdateNeighboursMessage_Node_fieldAccessorTable;
+      internal_static_com_netHandler_UpdateNeighboursResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -2223,19 +2693,18 @@ public final class RingNetworkHandler {
   static {
     java.lang.String[] descriptorData = {
       "\n\030RingNetworkHandler.proto\022\016com.netHandl" +
-      "er\"\346\002\n\027UpdateNeighboursMessage\022=\n\007networ" +
-      "k\030\001 \003(\0132,.com.netHandler.UpdateNeighbour" +
-      "sMessage.Node\022>\n\010previous\030\002 \001(\0132,.com.ne" +
-      "tHandler.UpdateNeighboursMessage.Node\022:\n" +
-      "\004from\030\003 \001(\0132,.com.netHandler.UpdateNeigh" +
-      "boursMessage.Node\022:\n\004next\030\004 \001(\0132,.com.ne" +
-      "tHandler.UpdateNeighboursMessage.Node\022\017\n" +
-      "\007exiting\030\005 \001(\010\022\020\n\010entering\030\006 \001(\010\0321\n\004Node" +
-      "\022\n\n\002id\030\001 \001(\t\022\017\n\007address\030\002 \001(\t\022\014\n\004port\030\003 ",
-      "\001(\0052t\n\020UpdateNeighbours\022`\n\006update\022\'.com." +
-      "netHandler.UpdateNeighboursMessage\032\'.com" +
-      ".netHandler.UpdateNeighboursMessage\"\000(\0010" +
-      "\001b\006proto3"
+      "er\"1\n\004Node\022\n\n\002id\030\001 \001(\t\022\017\n\007address\030\002 \001(\t\022" +
+      "\014\n\004port\030\003 \001(\005\"\254\001\n\027UpdateNeighboursMessag" +
+      "e\022&\n\010previous\030\001 \001(\0132\024.com.netHandler.Nod" +
+      "e\022\"\n\004from\030\002 \001(\0132\024.com.netHandler.Node\022\"\n" +
+      "\004next\030\003 \001(\0132\024.com.netHandler.Node\022\017\n\007exi" +
+      "ting\030\004 \001(\010\022\020\n\010entering\030\005 \001(\010\"r\n\030UpdateNe" +
+      "ighboursResponse\022\n\n\002ok\030\001 \001(\010\022&\n\010previous" +
+      "\030\002 \001(\0132\024.com.netHandler.Node\022\"\n\004next\030\003 \001" +
+      "(\0132\024.com.netHandler.Node2q\n\020UpdateNeighb",
+      "ours\022]\n\006update\022\'.com.netHandler.UpdateNe" +
+      "ighboursMessage\032(.com.netHandler.UpdateN" +
+      "eighboursResponse\"\000b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2249,18 +2718,24 @@ public final class RingNetworkHandler {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_com_netHandler_UpdateNeighboursMessage_descriptor =
+    internal_static_com_netHandler_Node_descriptor =
       getDescriptor().getMessageTypes().get(0);
+    internal_static_com_netHandler_Node_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_netHandler_Node_descriptor,
+        new java.lang.String[] { "Id", "Address", "Port", });
+    internal_static_com_netHandler_UpdateNeighboursMessage_descriptor =
+      getDescriptor().getMessageTypes().get(1);
     internal_static_com_netHandler_UpdateNeighboursMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_netHandler_UpdateNeighboursMessage_descriptor,
-        new java.lang.String[] { "Network", "Previous", "From", "Next", "Exiting", "Entering", });
-    internal_static_com_netHandler_UpdateNeighboursMessage_Node_descriptor =
-      internal_static_com_netHandler_UpdateNeighboursMessage_descriptor.getNestedTypes().get(0);
-    internal_static_com_netHandler_UpdateNeighboursMessage_Node_fieldAccessorTable = new
+        new java.lang.String[] { "Previous", "From", "Next", "Exiting", "Entering", });
+    internal_static_com_netHandler_UpdateNeighboursResponse_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_com_netHandler_UpdateNeighboursResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_com_netHandler_UpdateNeighboursMessage_Node_descriptor,
-        new java.lang.String[] { "Id", "Address", "Port", });
+        internal_static_com_netHandler_UpdateNeighboursResponse_descriptor,
+        new java.lang.String[] { "Ok", "Previous", "Next", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

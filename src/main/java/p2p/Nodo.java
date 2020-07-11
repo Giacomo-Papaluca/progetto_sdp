@@ -2,8 +2,6 @@ package p2p;
 
 
 import beans.Node;
-import beans.NodeNetwork;
-import com.netHandler.RingNetworkHandler;
 import pm10.PM10Simulator;
 import pm10.Simulator;
 
@@ -59,7 +57,6 @@ public class Nodo {
         WebResource webResource;
         Node node=new Node();
         try {
-            ClientResponse response;
             NetworkHandler networkHandler = new NetworkHandler();
             TokenHandler tokenHandler = new TokenHandler(buffer);
             networkHandler.setTokenHandler(tokenHandler);
@@ -88,7 +85,7 @@ public class Nodo {
                             Node n= new Node(lhm.get("id").toString(), lhm.get("address").toString(), Integer.parseInt(lhm.get("port").toString()));
                             nodeNetwork.add(i, n);
                         }
-                    } while (returnedNetwork == null); //400 bad_request se c'è già id.
+                    } while (returnedNetwork == null);
 
 
                     System.out.println("ho "+count+ "nodi");
@@ -103,7 +100,7 @@ public class Nodo {
                     tokenHandler.createToken=createToken;   //anche se molto poco probabile il secondo nodo generato potrebbe
                                                             //avere la stessa porta del primo e quindi ripetere l'ingresso attraverso il
                                                             //gateway. Per garantire la creazione del token voglio che il nodo crei il token
-                                                            //se almeno una .getNodes()volta ha ricevuto la lista con 2 nodi
+                                                            //se almeno una volta .getNodes() ha ricevuto la lista con 2 nodi
                     tokenHandler.setNetworkSize(count);
                     System.out.println(networkHandler.findNext(node).getId());
                     networkHandler.setNext(networkHandler.findNext(node));
@@ -136,8 +133,6 @@ public class Nodo {
                 check=br.readLine();
             }while(!check.toLowerCase().equals("exit"));
 
-            /*webResource = client.resource(URI.create("http://" + gateway + ":" + gatewayPort + resource + "/nodenetwork/remove/node"));
-            webResource.accept(MediaType.APPLICATION_JSON).post(String.class, node.getId());*/
 
             threadHandler.notifyExit();
 

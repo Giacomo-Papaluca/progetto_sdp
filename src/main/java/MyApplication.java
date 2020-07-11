@@ -14,7 +14,6 @@ public class MyApplication extends Application{
     @Override
     public Set<Class<?>> getClasses() {
         HashSet h = new HashSet<Class<?>>();
-        h.add( HelloWorld.class );
         h.add(NodeNetworkService.class);
         h.add(AnalystService.class);
         return h;

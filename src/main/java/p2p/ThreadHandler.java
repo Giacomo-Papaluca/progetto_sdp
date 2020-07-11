@@ -1,8 +1,5 @@
 package p2p;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class ThreadHandler {
 
@@ -46,7 +43,7 @@ public class ThreadHandler {
         notifyAll();
     }
 
-    public void acquiredToken() {
+    public synchronized void acquiredToken() {
         tokenAcquired=true;
     }
 

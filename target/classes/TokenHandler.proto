@@ -1,0 +1,25 @@
+syntax="proto3";
+
+package com.tokenHandler;
+
+message Node {
+  string id=1;
+  string address=2;
+  int32 port=3;
+}
+
+message Token{
+  int32 hopCount=1;
+  float aggregatedValue=2;
+  Node starter=3;
+  bool hasAggregatedValue=4;
+}
+
+message TokenResponse{
+  bool ok=1;
+  Node nextHop=2;
+}
+
+service SendToken{
+  rpc send (Token) returns (TokenResponse) {}
+}

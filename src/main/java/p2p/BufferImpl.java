@@ -32,10 +32,6 @@ public class BufferImpl implements Buffer {
         }
     }
 
-    public List<Measurement> getLastMeasurements(int n){
-        int s=buffer.size();
-        return buffer.subList(s-n, s);
-    }
 
     public float getAggregatedValue(){
         return aggregated_value;

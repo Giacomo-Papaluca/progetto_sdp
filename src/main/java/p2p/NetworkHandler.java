@@ -112,8 +112,7 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
     private boolean evaluateLeftNeighbouring(String fromId){
         Node tempPrevious=getPrevious();
         List<Node> tempNodes=getNodes();
-        if(tempPrevious.getId().equals(fromId)){    /// può capitare che dei nodi abbiano già la lista aggiornata dal gw e
-                                                // quindi sappiano già i propri vicini
+        if(tempPrevious.getId().equals(fromId)){
             return true;
         }
         if(tempNodes.get(0).getId().equals(node.getId())){
@@ -138,8 +137,7 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
     private boolean evaluateRightNeighbouring(String fromId){
         Node tempNext=getNext();
         List<Node> tempNodes=getNodes();
-        if(tempNext.getId().equals(fromId)){        /// può capitare che dei nodi abbiano già la lista aggiornata dal gw e
-                                                // quindi sappiano già i propri vicini
+        if(tempNext.getId().equals(fromId)){
             return true;
         }
         if(tempNodes.get(tempNodes.size()-1).getId().equals(node.getId())){
@@ -193,13 +191,7 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
             System.out.println(n.getId());
         }
         System.out.println("io: "+node.getId()+ " ho come prev: "+getPrevious().getId()+" e next: "+getNext().getId());
-        System.out.println("sleep");
-        try {
-            Random s=new Random();
-            Thread.sleep(1000*s.nextInt(8));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
         List<Node> tempNodes=getNodes();
         if(tempNodes.size()>1) {
 
@@ -302,9 +294,6 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
             }
 
             List<Node> picture=getNodes();
-            /*synchronized (nodes){
-                picture=new ArrayList<>(getNodes());
-            }*/
             for (Node n : picture) {
                 if (!n.getId().equals(getNext().getId()) && !n.getId().equals(getPrevious().getId()) && !n.getId().equals(node.getId())) {
                     ManagedChannel channel = ManagedChannelBuilder.forTarget(n.getAddress() + ":" + n.getPort()).usePlaintext(true).build();
@@ -331,12 +320,6 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
         tokenHandler.exiting=true;
         exiting=true;
 
-        try {
-            Random s=new Random();
-            Thread.sleep(1000*s.nextInt(8));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
 
         System.out.println("io: "+node.getId()+" next: "+getNext().getId()+" prev: "+getPrevious().getId());
@@ -430,9 +413,6 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                     .setNext(nodeBeanToMessage(next)).setPrevious(nodeBeanToMessage(previous)).setFrom(nodeBeanToMessage(node)).build();
 
             List<Node> picture=getNodes();
-            /*synchronized (nodes){
-                picture=new ArrayList<>(getNodes());
-            }*/
             for (Node n : picture) {
                 if (!n.getId().equals(next.getId()) && !n.getId().equals(previous.getId()) && !n.getId().equals(node.getId())) {
                     ManagedChannel channel=ManagedChannelBuilder.forTarget(n.getAddress()+":"+n.getPort()).usePlaintext(true).build();

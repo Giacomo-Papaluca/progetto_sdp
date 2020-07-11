@@ -2,8 +2,6 @@ package p2p;
 
 import beans.Measurement;
 import beans.Node;
-import com.google.protobuf.Descriptors;
-import com.netHandler.RingNetworkHandler;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -93,7 +91,9 @@ public class TokenHandler extends SendTokenGrpc.SendTokenImplBase implements Run
             trySend(token);
         }
         threadHandler.waitForUser();
+        System.out.println("th exit");
         threadHandler.waitForTokenRelease();
+        System.out.println("th bye");
     }
 
 
@@ -171,6 +171,7 @@ public class TokenHandler extends SendTokenGrpc.SendTokenImplBase implements Run
                 ManagedChannel channel = ManagedChannelBuilder.forTarget(dest.getAddress() + ":" + dest.getPort()).usePlaintext(true).build();
                 SendTokenGrpc.SendTokenBlockingStub stub = SendTokenGrpc.newBlockingStub(channel);
                 response = stub.send(token);
+                channel.shutdown();
                 while (!response.getOk()) {
                     System.out.println("response no ok from " + dest.getId());
                     com.tokenHandler.TokenHandler.Node nextHop = response.getNextHop();
@@ -182,6 +183,7 @@ public class TokenHandler extends SendTokenGrpc.SendTokenImplBase implements Run
                         channel = ManagedChannelBuilder.forTarget(dest.getAddress() + ":" + dest.getPort()).usePlaintext(true).build();
                         stub = SendTokenGrpc.newBlockingStub(channel);
                         response = stub.send(token);
+                        channel.shutdown();
                     }
                 }
             } catch (io.grpc.StatusRuntimeException exc) {
