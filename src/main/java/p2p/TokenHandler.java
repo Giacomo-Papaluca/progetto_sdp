@@ -164,28 +164,32 @@ public class TokenHandler extends SendTokenGrpc.SendTokenImplBase implements Run
     }
 
     private void trySend(com.tokenHandler.TokenHandler.Token token) {
-        try {
-            com.tokenHandler.TokenHandler.TokenResponse response;
-            Node dest = getDestination();
-            ManagedChannel channel = ManagedChannelBuilder.forTarget(dest.getAddress() + ":" + dest.getPort()).usePlaintext(true).build();
-            SendTokenGrpc.SendTokenBlockingStub stub = SendTokenGrpc.newBlockingStub(channel);
-            response = stub.send(token);
-            while (!response.getOk()) {
-                System.out.println("response no ok from " + dest.getId());
-                com.tokenHandler.TokenHandler.Node nextHop = response.getNextHop();
-                if (nextHop.getId().equals(node.getId())) {
-                    break;
-                } else {
-                    setDestination(new Node(nextHop.getId(), nextHop.getAddress(), nextHop.getPort()));
-                    dest = getDestination();
-                    channel = ManagedChannelBuilder.forTarget(dest.getAddress() + ":" + dest.getPort()).usePlaintext(true).build();
-                    stub = SendTokenGrpc.newBlockingStub(channel);
-                    response = stub.send(token);
+        if(networkSize>1) {
+            try {
+                com.tokenHandler.TokenHandler.TokenResponse response;
+                Node dest = getDestination();
+                ManagedChannel channel = ManagedChannelBuilder.forTarget(dest.getAddress() + ":" + dest.getPort()).usePlaintext(true).build();
+                SendTokenGrpc.SendTokenBlockingStub stub = SendTokenGrpc.newBlockingStub(channel);
+                response = stub.send(token);
+                while (!response.getOk()) {
+                    System.out.println("response no ok from " + dest.getId());
+                    com.tokenHandler.TokenHandler.Node nextHop = response.getNextHop();
+                    if (nextHop.getId().equals(node.getId())) {
+                        break;
+                    } else {
+                        setDestination(new Node(nextHop.getId(), nextHop.getAddress(), nextHop.getPort()));
+                        dest = getDestination();
+                        channel = ManagedChannelBuilder.forTarget(dest.getAddress() + ":" + dest.getPort()).usePlaintext(true).build();
+                        stub = SendTokenGrpc.newBlockingStub(channel);
+                        response = stub.send(token);
+                    }
+                }
+            } catch (io.grpc.StatusRuntimeException exc) {
+                setDestination(networkHandler.findNext(node));
+                if(!getDestination().getId().equals(node.getId())) {
+                    trySend(token);
                 }
             }
-        }catch (io.grpc.StatusRuntimeException exc){
-            setDestination(networkHandler.getNext());
-            trySend(token);
         }
     }
 

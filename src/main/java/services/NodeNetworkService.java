@@ -19,7 +19,7 @@ public class NodeNetworkService {
     public Response addNode(Node node){
         NodeNetwork check= NodeNetwork.getInstance().addNode(node);
         if(check!=null){
-            return Response.ok(NodeNetwork.getInstance()).build();
+            return Response.ok(check).build();
         }
         else{
             return Response.status(Response.Status.BAD_REQUEST).build();
@@ -46,7 +46,7 @@ public class NodeNetworkService {
     public Response removeNode(@PathParam("id") String nodeId){
         boolean check=NodeNetwork.getInstance().removeNode(nodeId);
         if(check) {
-            return Response.ok(NodeNetwork.getInstance()).build();
+            return Response.ok().build();
         }
         else {
             return Response.status(Response.Status.BAD_REQUEST).build();

@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.util.List;
 import java.util.Random;
 
 import com.sun.jersey.api.client.ClientResponse;
@@ -77,15 +78,13 @@ public class Nodo {
                         addNodeResponse = webResource.accept(MediaType.APPLICATION_JSON).post(ClientResponse.class, node);
                     } while (addNodeResponse.getStatus() != 200); //400 bad_request se c'è già id.
 
+                    List<Node> nodeNetwork=addNodeResponse.getEntity(NodeNetwork.class).getNodes();
+                    int count=nodeNetwork.size();
+                    System.out.println("ho "+count+ "nodi");
                     networkHandler.setNode(node);
                     tokenHandler.setNode(node);
-                    /*webResource=client.resource(URI.create("http://" + gateway + ":" + gatewayPort + resource + "/nodenetwork/nodes"));
-                    response=webResource.accept("application/json").get(ClientResponse.class);*/
-                    NodeNetwork nodeNetwork=addNodeResponse.getEntity(NodeNetwork.class);
-                    System.out.println("ho "+nodeNetwork.countNodes()+ "nodi");
                     //prima di far partire il server il nodo deve sapere attraverso la conoscenza locale il suo next e prev attuale
-                    networkHandler.setNodes(nodeNetwork.getNodes());
-                    int count=networkHandler.getNodes().size();
+                    networkHandler.setNodes(nodeNetwork);
                     if(count==2){
                         createToken=true;
                         networkHandler.justTwo=true;
@@ -93,7 +92,7 @@ public class Nodo {
                     tokenHandler.createToken=createToken;   //anche se molto poco probabile il secondo nodo generato potrebbe
                                                             //avere la stessa porta del primo e quindi ripetere l'ingresso attraverso il
                                                             //gateway. Per garantire la creazione del token voglio che il nodo crei il token
-                                                            //se almeno una volta ha ricevuto la lista con 2 nodi
+                                                            //se almeno una .getNodes()volta ha ricevuto la lista con 2 nodi
                     tokenHandler.setNetworkSize(count);
                     networkHandler.next=networkHandler.findNext(node);
                     tokenHandler.setDestination(networkHandler.getNext());

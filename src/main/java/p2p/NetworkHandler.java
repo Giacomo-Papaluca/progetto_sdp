@@ -263,6 +263,7 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                     RingNetworkHandler.UpdateNeighboursResponse fromNext = stubNext.update(message);
                     while (!fromNext.getOk()) {
                         if (fromNext.hasNext() && fromNext.hasPrevious()) {
+                            System.out.println("not ok has prev and next");
                             setNext(new Node(fromNext.getNext().getId(), fromNext.getNext().getAddress(), fromNext.getNext().getPort()));
                             setPrevious(new Node(fromNext.getPrevious().getId(), fromNext.getPrevious().getAddress(), fromNext.getPrevious().getPort()));
                             break;
@@ -503,12 +504,12 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                     else if(left){
                         addNode(fromNode);
                         RingNetworkHandler.Node suggestedPrevious= nodeBeanToMessage(next);
-                        response= RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(false).setPrevious(suggestedPrevious).build();
+                        response= RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(false).setPrevious(suggestedPrevious).setNext(nodeBeanToMessage(node)).build();
                     }
                     else if(right){
                         addNode(fromNode);
                         RingNetworkHandler.Node suggestedNext= nodeBeanToMessage(previous);
-                        response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(false).setNext(suggestedNext).build();
+                        response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(false).setNext(suggestedNext).setPrevious(nodeBeanToMessage(node)).build();
                     }
                     else{
                         RingNetworkHandler.Node suggestedPrevious= nodeBeanToMessage(next);
@@ -521,13 +522,13 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                         if(evaluateRightNeighbouring(fromId)) {
                             setNext(fromNode);
                             tokenHandler.setDestination(fromNode);
-                            System.out.println("next updaate con lista non aggiornata");
+                            System.out.println("next update con lista non aggiornata"+fromId);
                         }
                     }
                     synchronized (previous) {
                         if(evaluateLeftNeighbouring(fromId)) {
                             setPrevious(fromNode);
-                            System.out.println("prev update con lista non aggiornata");
+                            System.out.println("prev update con lista non aggiornata"+fromId);
                         }
                     }
                     addNode(fromNode);
