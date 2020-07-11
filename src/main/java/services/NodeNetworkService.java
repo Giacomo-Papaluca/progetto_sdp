@@ -8,6 +8,7 @@ import beans.Statistics;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 
 @Path("nodenetwork")
@@ -16,14 +17,9 @@ public class NodeNetworkService {
     @Path("add/node")
     @POST
     @Consumes("*/*")
-    public Response addNode(Node node){
-        NodeNetwork check= NodeNetwork.getInstance().addNode(node);
-        if(check!=null){
-            return Response.ok(check).build();
-        }
-        else{
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
+    public List<Node> addNode(Node node){
+        List<Node> check= NodeNetwork.getInstance().addNode(node);
+        return check;
     }
 
     @Path("add/measurement")

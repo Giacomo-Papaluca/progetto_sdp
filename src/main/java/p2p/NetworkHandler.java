@@ -215,6 +215,7 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                         toPrevious = ManagedChannelBuilder.forTarget(tempPrevious.getAddress() + ":" + tempPrevious.getPort()).usePlaintext(true).build();
                         UpdateNeighboursBlockingStub stubPrevious = UpdateNeighboursGrpc.newBlockingStub(toPrevious);
                         RingNetworkHandler.UpdateNeighboursResponse fromPrevious = stubPrevious.update(message);
+                        toPrevious.shutdown();
                         while (!fromPrevious.getOk()) {
                             if (fromPrevious.hasNext() && fromPrevious.hasPrevious()) {
                                 setNext(new Node(fromPrevious.getNext().getId(), fromPrevious.getNext().getAddress(), fromPrevious.getNext().getPort()));
@@ -234,6 +235,7 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                                     .setPrevious(suggestedPrevious)
                                     .setNext(message.getNext()).build();
                             fromPrevious = stubPrevious.update(message);
+                            toPrevious.shutdown();
                         }
                         System.out.println(fromPrevious);
                         break;
@@ -261,6 +263,7 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                     toNext = ManagedChannelBuilder.forTarget(tempNext.getAddress() + ":" + tempNext.getPort()).usePlaintext(true).build();
                     UpdateNeighboursBlockingStub stubNext = UpdateNeighboursGrpc.newBlockingStub(toNext);
                     RingNetworkHandler.UpdateNeighboursResponse fromNext = stubNext.update(message);
+                    toNext.shutdown();
                     while (!fromNext.getOk()) {
                         if (fromNext.hasNext() && fromNext.hasPrevious()) {
                             System.out.println("not ok has prev and next");
@@ -281,6 +284,7 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                                 .setNext(suggestedNext)
                                 .setPrevious(message.getPrevious()).build();
                         fromNext = stubNext.update(message);
+                        toNext.shutdown();
                     }
                     System.out.println(fromNext);
                     break;
@@ -308,6 +312,7 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                         UpdateNeighboursBlockingStub stub = UpdateNeighboursGrpc.newBlockingStub(channel);
                         try {
                             stub.update(message);
+                            channel.shutdown();
                         }catch (io.grpc.StatusRuntimeException exc){
                             System.out.println("nodo offline, non aggiornato");
                             removeNode(n.getId());
@@ -333,7 +338,7 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
             e.printStackTrace();
         }
 
-        System.out.println("bye");
+
         System.out.println("io: "+node.getId()+" next: "+getNext().getId()+" prev: "+getPrevious().getId());
         System.out.println("lista");
         tempNodes=getNodes();
@@ -351,6 +356,7 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                     toPrevious = ManagedChannelBuilder.forTarget(tempPrevious.getAddress() + ":" + tempPrevious.getPort()).usePlaintext(true).build();
                     UpdateNeighboursBlockingStub stubPrevious = UpdateNeighboursGrpc.newBlockingStub(toPrevious);
                     RingNetworkHandler.UpdateNeighboursResponse fromPrevious = stubPrevious.update(message);
+                    toPrevious.shutdown();
                     while (!fromPrevious.getOk()) {
                         System.out.println("exiting, from previous not ok");
                         removeNode(tempPrevious.getId());
@@ -364,6 +370,7 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                         toPrevious = ManagedChannelBuilder.forTarget(tempPrevious.getAddress() + ":" + tempPrevious.getPort()).usePlaintext(true).build();
                         stubPrevious = UpdateNeighboursGrpc.newBlockingStub(toPrevious);
                         fromPrevious = stubPrevious.update(message);
+                        toPrevious.shutdown();
                     }
                     break;
                 }catch (io.grpc.StatusRuntimeException exc){
@@ -388,6 +395,7 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                     toNext = ManagedChannelBuilder.forTarget(tempNext.getAddress() + ":" + tempNext.getPort()).usePlaintext(true).build();
                     UpdateNeighboursBlockingStub stubNext = UpdateNeighboursGrpc.newBlockingStub(toNext);
                     RingNetworkHandler.UpdateNeighboursResponse fromNext = stubNext.update(message);
+                    toNext.shutdown();
                     while (!fromNext.getOk()) {
                         System.out.println("exiting, from next no ok");
                         removeNode(tempNext.getId());
@@ -402,6 +410,7 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                         toNext = ManagedChannelBuilder.forTarget(tempNext.getAddress() + ":" + tempNext.getPort()).usePlaintext(true).build();
                         stubNext = UpdateNeighboursGrpc.newBlockingStub(toNext);
                         fromNext = stubNext.update(message);
+                        toNext.shutdown();
                     }
                     break;
                 }catch (io.grpc.StatusRuntimeException exc){
@@ -431,6 +440,7 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                         UpdateNeighboursBlockingStub stub= UpdateNeighboursGrpc.newBlockingStub(channel);
                         try {
                             stub.update(message);
+                            channel.shutdown();
                         }catch (io.grpc.StatusRuntimeException exc){
                             System.out.println("nodo offline, non aggiornato");
                             removeNode(n.getId());
@@ -439,6 +449,7 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                 }
             }
         }
+        System.out.println("bye");
 
     }
 

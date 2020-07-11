@@ -11,6 +11,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -72,14 +74,23 @@ public class Nodo {
                     server = ServerBuilder.forPort(nodePort).addService(networkHandler).addService(tokenHandler).build();
                     ClientResponse addNodeResponse;
                     webResource = client.resource(URI.create("http://" + gateway + ":" + gatewayPort + resource + "/nodenetwork/add/node"));
+                    List<LinkedHashMap> returnedNetwork;
+                    List<Node> nodeNetwork=new ArrayList<>();
+                    int count;
                     do {
                         String nodeId=randomAlphaNumeric(idLength);
                         node = new Node(nodeId,  "localhost", nodePort);
                         addNodeResponse = webResource.accept(MediaType.APPLICATION_JSON).post(ClientResponse.class, node);
-                    } while (addNodeResponse.getStatus() != 200); //400 bad_request se c'è già id.
+                        returnedNetwork=addNodeResponse.getEntity(List.class);
+                        count=returnedNetwork.size();
+                        for (int i = 0; i < count; i++) {
+                            LinkedHashMap lhm=returnedNetwork.get(i);
+                            Node n= new Node(lhm.get("id").toString(), lhm.get("address").toString(), Integer.parseInt(lhm.get("port").toString()));
+                            nodeNetwork.add(i, n);
+                        }
+                    } while (returnedNetwork == null); //400 bad_request se c'è già id.
 
-                    List<Node> nodeNetwork=addNodeResponse.getEntity(NodeNetwork.class).getNodes();
-                    int count=nodeNetwork.size();
+
                     System.out.println("ho "+count+ "nodi");
                     networkHandler.setNode(node);
                     tokenHandler.setNode(node);
@@ -94,9 +105,10 @@ public class Nodo {
                                                             //gateway. Per garantire la creazione del token voglio che il nodo crei il token
                                                             //se almeno una .getNodes()volta ha ricevuto la lista con 2 nodi
                     tokenHandler.setNetworkSize(count);
-                    networkHandler.next=networkHandler.findNext(node);
+                    System.out.println(networkHandler.findNext(node).getId());
+                    networkHandler.setNext(networkHandler.findNext(node));
                     tokenHandler.setDestination(networkHandler.getNext());
-                    networkHandler.previous=networkHandler.findPrev(node);
+                    networkHandler.setPrevious(networkHandler.findPrev(node));
                     server.start();
                     break;
                 }catch (java.net.BindException exception){
