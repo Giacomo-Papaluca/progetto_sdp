@@ -91,9 +91,7 @@ public class TokenHandler extends SendTokenGrpc.SendTokenImplBase implements Run
             trySend(token);
         }
         threadHandler.waitForUser();
-        System.out.println("th exit");
         threadHandler.waitForTokenRelease();
-        System.out.println("th bye");
     }
 
 
@@ -173,7 +171,7 @@ public class TokenHandler extends SendTokenGrpc.SendTokenImplBase implements Run
                 response = stub.send(token);
                 channel.shutdown();
                 while (!response.getOk()) {
-                    System.out.println("response no ok from " + dest.getId());
+                    System.out.println("token response no ok from " + dest.getId());
                     com.tokenHandler.TokenHandler.Node nextHop = response.getNextHop();
                     if (nextHop.getId().equals(node.getId())) {
                         break;

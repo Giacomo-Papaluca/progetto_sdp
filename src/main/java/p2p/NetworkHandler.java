@@ -42,11 +42,12 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
         this.nodes = nodes;
     }
 
-    public void setNext(Node next){
+    public synchronized void setNext(Node next){
         this.next=next;
+        tokenHandler.setDestination(next);
     }
 
-    public void setPrevious(Node previous){
+    public synchronized void setPrevious(Node previous){
         this.previous=previous;
     }
 
@@ -192,6 +193,14 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
         }
         System.out.println("io: "+node.getId()+ " ho come prev: "+getPrevious().getId()+" e next: "+getNext().getId());
 
+        System.out.println("sleep");
+        try {
+            Random s=new Random();
+            Thread.sleep(1000*s.nextInt(8));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         List<Node> tempNodes=getNodes();
         if(tempNodes.size()>1) {
 
@@ -309,9 +318,10 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                     }
                 }
             }
-            tokenHandler.setDestination(getNext());
-            threadHandler.notifyDestinationSet();
+
         }
+
+        threadHandler.notifyDestinationSet();
 
         entering = false;
 
@@ -320,7 +330,13 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
         tokenHandler.exiting=true;
         exiting=true;
 
-
+        System.out.println("sleep");
+        try {
+            Random s=new Random();
+            Thread.sleep(1000*s.nextInt(8));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         System.out.println("io: "+node.getId()+" next: "+getNext().getId()+" prev: "+getPrevious().getId());
         System.out.println("lista");
@@ -463,7 +479,6 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                             addNode(fromNode);
                             response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(true).build();
                             setNext(fromNode);
-                            tokenHandler.setDestination(fromNode);
                             System.out.println("new next: " + next.getId());
                         } else {
                             Node tempNext=getNext();
@@ -477,7 +492,6 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                     synchronized (next) {
                         if(evaluateRightNeighbouring(fromId)) {
                             setNext(fromNode);
-                            tokenHandler.setDestination(fromNode);
                             right=true;
                         }
                     }
@@ -512,7 +526,6 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                     synchronized (next) {   //controllo comunque, potrebbe essermi arrivato un update mentre la mia lista non è aggiornata
                         if(evaluateRightNeighbouring(fromId)) {
                             setNext(fromNode);
-                            tokenHandler.setDestination(fromNode);
                             System.out.println("next update con lista non aggiornata"+fromId);
                         }
                     }
@@ -559,7 +572,6 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                 } else if (message.getPrevious().getId().equals(node.getId())&&!message.getNext().getId().equals(node.getId())) {
                     synchronized (next) {
                         setNext(new Node(message.getNext().getId(), message.getNext().getAddress(), message.getNext().getPort()));
-                        tokenHandler.setDestination(getNext());
                         System.out.println("next removed, new next");
                     }
                 } else if(message.getNext().getId().equals(node.getId())&&message.getPrevious().getId().equals(node.getId())){
@@ -568,7 +580,6 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                     }
                     synchronized (next) {
                         setNext(node);
-                        tokenHandler.setDestination(getNext());
                     }
                     System.out.println("removed nex&prev, new next&prev: "+node.getId());
                 } else {
