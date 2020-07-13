@@ -11,10 +11,12 @@ public class BufferImpl implements Buffer {
     List<Measurement> buffer;
     float aggregated_value;
     long most_recent_timestamp;
+    boolean newMeasurement;
 
     public BufferImpl(){
         buffer=new ArrayList<>();
         most_recent_timestamp=-1;
+        newMeasurement=false;
     }
 
     @Override
@@ -28,10 +30,14 @@ public class BufferImpl implements Buffer {
             aggregated_value=sum/buffer.size();
             most_recent_timestamp=m.getTimestamp();
             buffer.subList(0,6).clear();
-            notify();
+            notifyAggregatedValue();
         }
     }
 
+    public synchronized void notifyAggregatedValue(){
+        newMeasurement=true;
+        this.notify();
+    }
 
     public float getAggregatedValue(){
         return aggregated_value;
@@ -43,7 +49,10 @@ public class BufferImpl implements Buffer {
 
     public synchronized void waitForMeasurement() {
         try {
-            this.wait();
+            while (!newMeasurement) {
+                this.wait();
+            }
+            newMeasurement=false;
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -102,7 +102,6 @@ public class Nodo {
                                                             //gateway. Per garantire la creazione del token voglio che il nodo crei il token
                                                             //se almeno una volta .getNodes() ha ricevuto la lista con 2 nodi
                     tokenHandler.setNetworkSize(count);
-                    System.out.println(networkHandler.findNext(node).getId());
                     networkHandler.setNext(networkHandler.findNext(node));
                     tokenHandler.setDestination(networkHandler.getNext());
                     networkHandler.setPrevious(networkHandler.findPrev(node));

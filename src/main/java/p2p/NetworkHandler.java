@@ -92,8 +92,10 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
             }
             if (!contained) {
                 nodes.add(i, new Node(node.getId(), node.getAddress(), node.getPort()));
+                tokenHandler.setNetworkSize(getNodes().size());
+                System.out.println("nodo aggiunto, netsize: "+tokenHandler.getNetworkSize());
             }
-            tokenHandler.setNetworkSize(getNodes().size());
+
         }
 
     }
@@ -103,10 +105,11 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
             for (Node n : nodes) {
                 if (n.getId().equals(id)) {
                     nodes.remove(n);
+                    tokenHandler.setNetworkSize(getNodes().size());
+                    System.out.println("nodo rimosso, netsize: "+tokenHandler.getNetworkSize());
                     return;
                 }
             }
-            tokenHandler.setNetworkSize(getNodes().size());
         }
     }
 
@@ -193,13 +196,6 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
         }
         System.out.println("io: "+node.getId()+ " ho come prev: "+getPrevious().getId()+" e next: "+getNext().getId());
 
-        System.out.println("sleep");
-        try {
-            Random s=new Random();
-            Thread.sleep(1000*s.nextInt(8));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         List<Node> tempNodes=getNodes();
         if(tempNodes.size()>1) {
@@ -209,55 +205,51 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                     .setNext(nodeBeanToMessage(getNext()))
                     .setPrevious(nodeBeanToMessage(getPrevious()))
                     .build();
-            if(!justTwo&&tempNodes.size()!=2) {
-                while (true) {
-                    try {
-                        Node tempPrevious = getPrevious();
-                        toPrevious = ManagedChannelBuilder.forTarget(tempPrevious.getAddress() + ":" + tempPrevious.getPort()).usePlaintext(true).build();
-                        UpdateNeighboursBlockingStub stubPrevious = UpdateNeighboursGrpc.newBlockingStub(toPrevious);
-                        RingNetworkHandler.UpdateNeighboursResponse fromPrevious = stubPrevious.update(message);
-                        toPrevious.shutdown();
-                        while (!fromPrevious.getOk()) {
-                            if (fromPrevious.hasNext() && fromPrevious.hasPrevious()) {
-                                setNext(new Node(fromPrevious.getNext().getId(), fromPrevious.getNext().getAddress(), fromPrevious.getNext().getPort()));
-                                setPrevious(new Node(fromPrevious.getPrevious().getId(), fromPrevious.getPrevious().getAddress(), fromPrevious.getPrevious().getPort()));
-                                break;
-                            }
-                            System.out.println(node.getId() + " received prev no ok, suggested: " + fromPrevious.getPrevious().getId());
-                            RingNetworkHandler.Node suggestedPrevious = fromPrevious.getPrevious();
-                            synchronized (previous) {
-                                setPrevious(new Node(suggestedPrevious.getId(), suggestedPrevious.getAddress(), suggestedPrevious.getPort()));
-                            }
-                            tempPrevious = getPrevious();
-                            addNode(tempPrevious);
-                            toPrevious = ManagedChannelBuilder.forTarget(tempPrevious.getAddress() + ":" + tempPrevious.getPort()).usePlaintext(true).build();
-                            stubPrevious = UpdateNeighboursGrpc.newBlockingStub(toPrevious);
-                            message = UpdateNeighboursMessage.newBuilder().setEntering(entering).setExiting(exiting).setFrom(message.getFrom())
-                                    .setPrevious(suggestedPrevious)
-                                    .setNext(message.getNext()).build();
-                            fromPrevious = stubPrevious.update(message);
-                            toPrevious.shutdown();
-                        }
-                        System.out.println(fromPrevious);
-                        break;
-                    } catch (io.grpc.StatusRuntimeException exc) {
-                        synchronized (previous) {
-                            setPrevious(findPrev(node));
-                        }
-                        if (getPrevious().getId().equals(node.getId())) {
+
+            while (true) {
+                try {
+                    Node tempPrevious = getPrevious();
+                    toPrevious = ManagedChannelBuilder.forTarget(tempPrevious.getAddress() + ":" + tempPrevious.getPort()).usePlaintext(true).build();
+                    UpdateNeighboursBlockingStub stubPrevious = UpdateNeighboursGrpc.newBlockingStub(toPrevious);
+                    RingNetworkHandler.UpdateNeighboursResponse fromPrevious = stubPrevious.update(message);
+                    toPrevious.shutdown();
+                    while (!fromPrevious.getOk()) {
+                        if (fromPrevious.hasNext() && fromPrevious.hasPrevious()) {
+                            setNext(new Node(fromPrevious.getNext().getId(), fromPrevious.getNext().getAddress(), fromPrevious.getNext().getPort()));
+                            setPrevious(new Node(fromPrevious.getPrevious().getId(), fromPrevious.getPrevious().getAddress(), fromPrevious.getPrevious().getPort()));
                             break;
-                        } else {
-                            continue;
                         }
+                        System.out.println(node.getId() + " received prev no ok, suggested: " + fromPrevious.getPrevious().getId());
+                        RingNetworkHandler.Node suggestedPrevious = fromPrevious.getPrevious();
+                        setPrevious(new Node(suggestedPrevious.getId(), suggestedPrevious.getAddress(), suggestedPrevious.getPort()));
+                        tempPrevious = getPrevious();
+                        addNode(tempPrevious);
+                        toPrevious = ManagedChannelBuilder.forTarget(tempPrevious.getAddress() + ":" + tempPrevious.getPort()).usePlaintext(true).build();
+                        stubPrevious = UpdateNeighboursGrpc.newBlockingStub(toPrevious);
+                        message = UpdateNeighboursMessage.newBuilder().setEntering(entering).setExiting(exiting).setFrom(message.getFrom())
+                                .setPrevious(suggestedPrevious)
+                                .setNext(message.getNext()).build();
+                        fromPrevious = stubPrevious.update(message);
+                        toPrevious.shutdown();
+                    }
+                    System.out.println(fromPrevious);
+                    break;
+                } catch (io.grpc.StatusRuntimeException exc) {
+                    setPrevious(findPrev(node));
+                    if (getPrevious().getId().equals(node.getId())) {
+                        break;
+                    } else {
+                        continue;
                     }
                 }
-
-                message = UpdateNeighboursMessage.newBuilder().setEntering(entering).setExiting(exiting)
-                        .setFrom(nodeBeanToMessage(node))
-                        .setNext(nodeBeanToMessage(getNext()))
-                        .setPrevious(nodeBeanToMessage(getPrevious()))
-                        .build();
             }
+
+            message = UpdateNeighboursMessage.newBuilder().setEntering(entering).setExiting(exiting)
+                    .setFrom(nodeBeanToMessage(node))
+                    .setNext(nodeBeanToMessage(getNext()))
+                    .setPrevious(nodeBeanToMessage(getPrevious()))
+                    .build();
+
             while (true) {
                 try {
                     Node tempNext = getNext();
@@ -274,9 +266,7 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                         }
                         System.out.println(node.getId() + " received next no ok, suggested: " + fromNext.getNext().getId()+" "+System.currentTimeMillis());
                         RingNetworkHandler.Node suggestedNext = fromNext.getNext();
-                        synchronized (next) {
-                            setNext(new Node(suggestedNext.getId(), suggestedNext.getAddress(), suggestedNext.getPort()));
-                        }
+                        setNext(new Node(suggestedNext.getId(), suggestedNext.getAddress(), suggestedNext.getPort()));
                         tempNext = getNext();
                         addNode(tempNext);
                         toNext = ManagedChannelBuilder.forTarget(tempNext.getAddress() + ":" + tempNext.getPort()).usePlaintext(true).build();
@@ -290,9 +280,7 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                     System.out.println(fromNext);
                     break;
                 }catch (io.grpc.StatusRuntimeException exc){
-                    synchronized (next){
                         setNext(findNext(node));
-                    }
                     if(getNext().getId().equals(node.getId())){
                         break;
                     }
@@ -330,14 +318,6 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
         tokenHandler.exiting=true;
         exiting=true;
 
-        System.out.println("sleep");
-        try {
-            Random s=new Random();
-            Thread.sleep(1000*s.nextInt(8));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         System.out.println("io: "+node.getId()+" next: "+getNext().getId()+" prev: "+getPrevious().getId());
         System.out.println("lista");
         tempNodes=getNodes();
@@ -360,9 +340,7 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                         System.out.println("exiting, from previous not ok");
                         removeNode(tempPrevious.getId());
                         RingNetworkHandler.Node suggestedPrevious = fromPrevious.getPrevious();
-                        synchronized (previous) {
-                            setPrevious(new Node(suggestedPrevious.getId(), suggestedPrevious.getAddress(), suggestedPrevious.getPort()));
-                        }
+                        setPrevious(new Node(suggestedPrevious.getId(), suggestedPrevious.getAddress(), suggestedPrevious.getPort()));
                         tempPrevious = getPrevious();
                         message = UpdateNeighboursMessage.newBuilder().setEntering(message.getEntering()).setExiting(message.getExiting())
                                 .setFrom(message.getFrom()).setPrevious(suggestedPrevious).setNext(message.getNext()).build();
@@ -373,10 +351,8 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                     }
                     break;
                 }catch (io.grpc.StatusRuntimeException exc){
-                    synchronized (previous){
                         removeNode(previous.getId());
                         setPrevious(findPrev(node));
-                    }
                     if(getPrevious().getId().equals(node.getId())){
                         break;
                     }
@@ -399,9 +375,7 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                         System.out.println("exiting, from next no ok");
                         removeNode(tempNext.getId());
                         RingNetworkHandler.Node suggestedNext = fromNext.getNext();
-                        synchronized (next) {
-                            setNext(new Node(suggestedNext.getId(), suggestedNext.getAddress(), suggestedNext.getPort()));
-                        }
+                        setNext(new Node(suggestedNext.getId(), suggestedNext.getAddress(), suggestedNext.getPort()));
                         tempNext = getNext();
                         message = UpdateNeighboursMessage.newBuilder().setEntering(message.getEntering()).setExiting(message.getExiting()).setFrom(message.getFrom())
                                 .setNext(suggestedNext)
@@ -413,10 +387,8 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                     }
                     break;
                 }catch (io.grpc.StatusRuntimeException exc){
-                    synchronized (next){
                         removeNode(next.getId());
                         setNext(findNext(node));
-                    }
                     if(getNext().getId().equals(node.getId())){
                         break;
                     }
@@ -456,52 +428,55 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
         String fromId=from.getId();
         RingNetworkHandler.UpdateNeighboursResponse response;
         Node fromNode = new Node(fromId, from.getAddress(), from.getPort());
-
+        List<Node> tempNodes=getNodes();
         if (message.getEntering()) {
             if(!exiting){
                 if (message.getNext().getId().equals(node.getId())&&!message.getPrevious().getId().equals(node.getId())) {
-                    synchronized (previous){
-                        if (evaluateLeftNeighbouring(fromId)) {
-                            addNode(fromNode);
-                            response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(true).build();
-                            setPrevious(fromNode);
-                            System.out.println("new prev: " + previous.getId());
-                        } else {
-                            Node tempPrevious=getPrevious();
-                            RingNetworkHandler.Node suggestedNext = RingNetworkHandler.Node.newBuilder().setId(tempPrevious.getId())
-                                    .setPort(tempPrevious.getPort()).setAddress(tempPrevious.getAddress()).build();
-                            response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(false).setNext(suggestedNext).build();
+                    if (evaluateLeftNeighbouring(fromId)) {
+                        addNode(fromNode);
+                        response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(true).build();
+                        setPrevious(fromNode);
+                        if(tempNodes.size()==1){
+                            setNext(fromNode);
+                            System.out.println("(next) tempNodes size=1");
                         }
+                        System.out.println("new prev: " + getPrevious().getId());
+                    } else {
+                        Node tempPrevious=getPrevious();
+                        RingNetworkHandler.Node suggestedNext = RingNetworkHandler.Node.newBuilder().setId(tempPrevious.getId())
+                                .setPort(tempPrevious.getPort()).setAddress(tempPrevious.getAddress()).build();
+                        response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(false).setNext(suggestedNext).build();
                     }
                 } else if (message.getPrevious().getId().equals(node.getId())&&!message.getNext().getId().equals(node.getId())) {
-                    synchronized (next){
-                        if (evaluateRightNeighbouring(fromId)) {
-                            addNode(fromNode);
-                            response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(true).build();
-                            setNext(fromNode);
-                            System.out.println("new next: " + next.getId());
-                        } else {
-                            Node tempNext=getNext();
-                            RingNetworkHandler.Node suggestedPrevious = RingNetworkHandler.Node.newBuilder().setId(tempNext.getId())
-                                    .setPort(tempNext.getPort()).setAddress(tempNext.getAddress()).build();
-                            response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(false).setPrevious(suggestedPrevious).build();
+                    if (evaluateRightNeighbouring(fromId)) {
+                        addNode(fromNode);
+                        response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(true).build();
+                        setNext(fromNode);
+                        if(tempNodes.size()==1){
+                            setPrevious(fromNode);
+                            System.out.println("(prev) tempNodes size=1");
                         }
+                        System.out.println("new next: " + next.getId());
+                    } else {
+                        Node tempNext=getNext();
+                        RingNetworkHandler.Node suggestedPrevious = RingNetworkHandler.Node.newBuilder().setId(tempNext.getId())
+                                .setPort(tempNext.getPort()).setAddress(tempNext.getAddress()).build();
+                        response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(false).setPrevious(suggestedPrevious).build();
                     }
                 } else if(message.getNext().getId().equals(node.getId())&&message.getPrevious().getId().equals(node.getId())){
                     boolean left=false,right=false;
-                    synchronized (next) {
-                        if(evaluateRightNeighbouring(fromId)) {
-                            setNext(fromNode);
-                            right=true;
-                        }
+
+                    if(evaluateRightNeighbouring(fromId)) {
+                        setNext(fromNode);
+                        right=true;
                     }
-                    synchronized (previous) {
-                        if(evaluateLeftNeighbouring(fromId)) {
-                            setPrevious(fromNode);
-                            left=true;
-                        }
+
+                    if(evaluateLeftNeighbouring(fromId)) {
+                        setPrevious(fromNode);
+                        left=true;
                     }
-                    System.out.println("new next e prev: "+next.getId());
+
+                    System.out.println("new next e prev: "+fromId);
                     if(left&&right) {
                         addNode(fromNode);
                         response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(true).build();
@@ -523,18 +498,17 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
                     }
 
                 } else {
-                    synchronized (next) {   //controllo comunque, potrebbe essermi arrivato un update mentre la mia lista non è aggiornata
-                        if(evaluateRightNeighbouring(fromId)) {
-                            setNext(fromNode);
-                            System.out.println("next update con lista non aggiornata"+fromId);
-                        }
+                    //controllo comunque, potrebbe essermi arrivato un update mentre la mia lista non è aggiornata
+                    if(evaluateRightNeighbouring(fromId)) {
+                        setNext(fromNode);
+                        System.out.println("next update con lista non aggiornata"+fromId);
                     }
-                    synchronized (previous) {
-                        if(evaluateLeftNeighbouring(fromId)) {
-                            setPrevious(fromNode);
-                            System.out.println("prev update con lista non aggiornata"+fromId);
-                        }
+
+                    if(evaluateLeftNeighbouring(fromId)) {
+                        setPrevious(fromNode);
+                        System.out.println("prev update con lista non aggiornata"+fromId);
                     }
+
                     addNode(fromNode);
                     System.out.println("aggiunto nodo: "+fromNode.getId());
                     response = RingNetworkHandler.UpdateNeighboursResponse.newBuilder().setOk(true).build();
@@ -565,22 +539,16 @@ public class NetworkHandler extends UpdateNeighboursImplBase implements Runnable
             if(!exiting){
                 removeNode(fromId);
                 if (message.getNext().getId().equals(node.getId())&&!message.getPrevious().getId().equals(node.getId())) {
-                    synchronized (previous) {
                         setPrevious(new Node(message.getPrevious().getId(), message.getPrevious().getAddress(), message.getPrevious().getPort()));
                         System.out.println("prev removed, new prev");
-                    }
+
                 } else if (message.getPrevious().getId().equals(node.getId())&&!message.getNext().getId().equals(node.getId())) {
-                    synchronized (next) {
                         setNext(new Node(message.getNext().getId(), message.getNext().getAddress(), message.getNext().getPort()));
                         System.out.println("next removed, new next");
-                    }
+
                 } else if(message.getNext().getId().equals(node.getId())&&message.getPrevious().getId().equals(node.getId())){
-                    synchronized (previous) {
                         setPrevious(node);
-                    }
-                    synchronized (next) {
                         setNext(node);
-                    }
                     System.out.println("removed nex&prev, new next&prev: "+node.getId());
                 } else {
                     removeNode(fromId);
